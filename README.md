@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>간단한 HTML 예제</title>
-    <style>
-        /* 배경 색상과 텍스트 스타일 */
-        body {
-            background-color: white; /* 흰 배경 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+#
 
-        h1 {
-            font-size: 30px;
-            color: #333;
-        }
-    </style>
-    <script>
-        // 우클릭 방지
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert('우클릭이 비활성화되었습니다.');
-        });
-
-        // 키보드 단축키 방지
-        document.addEventListener('keydown', function(e) {
-            // Ctrl + C, Ctrl + U, F12, Ctrl + Shift + I (개발자 도구 방지)
-            if ((e.ctrlKey && e.key === 'c') || (e.ctrlKey && e.key === 'u') || e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-                e.preventDefault();
-                alert('해당 단축키는 사용할 수 없습니다.');
-            }
-        });
-    </script>
-</head>
-<body>
-    <h1>매산로 1가 37-9번지. 3층에 PC 하나 있는 좌식형 룸카페가 있었던 상가이다 물론 지금은 45cM 이라는 호프 요리주점으로 바뀌어 사라진 상태임. 당시 필자는 또래보다 비교적 작은 물건, 비교적 짧은 러닝타임 이라는 치명적인 페널티를 가지고 있었지만 콘돔 2팩, 즉 4개를 사면 하루에 다 쓰고 집에 귀가 할 정도로 정신나간 재생력과 체력이 있었음. 그야말로 교내 에서는 찐따, 샌드백, 광대, 장난감 이었을지언정 교외 에서 만큼은 타고난 성교 중독자였음.
+매산로 1가 37-9번지. 3층에 PC 하나 있는 좌식형 룸카페가 있었던 상가이다 물론 지금은 45cM 이라는 호프 요리주점으로 바뀌어 사라진 상태임. 당시 필자는 또래보다 비교적 작은 물건, 비교적 짧은 러닝타임 이라는 치명적인 페널티를 가지고 있었지만 콘돔 2팩, 즉 4개를 사면 하루에 다 쓰고 집에 귀가 할 정도로 정신나간 재생력과 체력이 있었음. 그야말로 교내 에서는 찐따, 샌드백, 광대, 장난감 이었을지언정 교외 에서 만큼은 타고난 성교 중독자였음.
 
 그 날도 어김없이 지금은 사라진 스위트룸카페 에서 콘돔 4개를 다 쓰고 나와서 일반 카페도 가고 오락실도 가고 노래방도 가며 놀거리들을 즐겼음. 정말 그때의 나는 여성의 육체의 미쳐있었던건지 룸카페에서 나온지 3시간이 채 되지 않았는데도 또 충동이 오고, 욕구가 샘솟았음. 그렇다고 룸카페를 또 가기에는 하루에만 36000원을 쓰는거라 가격부담도 있고 해가 저물고 있어 시간이 애매했음. 그래서 상술한 매산로1가 37-9번지 4층 짜리 건물로 갔음.
 
@@ -92,6 +53,3 @@
 
 이후에는 ☒도 빼고 자세 바꿔서 마주보면서도 하고... 마주보면서 하면 입을 맞출 수 있고, 눈도 맞출 수 있으니까 더 달아오르는 느낌이 났음.
 
-</h1>
-</body>
-</html>
