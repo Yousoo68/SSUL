@@ -21,8 +21,24 @@
             color: #333;
         }
     </style>
+    <script>
+        // 마우스 우클릭 방지
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('우클릭이 비활성화되었습니다.');
+        });
+
+        // 화면 캡처 방지 (주요 단축키 방지)
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + C, Ctrl + U, F12, Ctrl + Shift + I (개발자 도구 방지)
+            if ((e.ctrlKey && e.key === 'c') || (e.ctrlKey && e.key === 'u') || e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                alert('해당 단축키는 사용할 수 없습니다.');
+            }
+        });
+    </script>
 </head>
 <body>
-    <h1>Test</h1>
+    <h1>Test5555</h1>
 </body>
 </html>
