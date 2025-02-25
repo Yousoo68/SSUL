@@ -15,12 +15,15 @@
             flex-direction: column;
             text-align: center;
             overflow-y: auto;
+            background-color: #f4f4f4;
         }
         .image-container {
             width: 200px;
             height: 200px;
             background-color: #ccc;
-            margin-bottom: 100px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
         }
         .image-container img {
             width: 100%;
@@ -37,7 +40,7 @@
             font-size: 18px;
             color: #007bff;
             cursor: pointer;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         .subtitle:hover {
             text-decoration: underline;
@@ -78,7 +81,18 @@
         .disclaimer {
             font-size: 12px;
             color: #999;
-            margin-top: 20px;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+        .large-image-container {
+            width: 100%;
+            max-width: 2620px;
+            margin-bottom: 50px;
+        }
+        .large-image-container img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
         }
     </style>
 </head>
@@ -97,6 +111,10 @@
         <div class="title">목록</div>
         <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'">공섹썰🌿</div>
         <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
+
+        <div class="large-image-container">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="Large Image">
+        </div>
 
         <div class="disclaimer">
             섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다. 가끔 수위가 매우 센 썰은 B독자에게는 비공개, A독자에게는 한정공개, P독자에게는 영구공개 합니다.<br>
