@@ -14,12 +14,13 @@
             margin: 0;
             flex-direction: column;
             text-align: center;
+            overflow-y: auto;
         }
         .image-container {
             width: 200px;
             height: 200px;
             background-color: #ccc;
-            margin-bottom: 100px; /* 간격을 5번 엔터 간격으로 설정 */
+            margin-bottom: 100px;
         }
         .image-container img {
             width: 100%;
@@ -30,7 +31,7 @@
             font-size: 30px;
             font-weight: bold;
             color: black;
-            margin-bottom: 20px; /* 제목과 목록 간 간격 */
+            margin-bottom: 20px;
         }
         .subtitle {
             font-size: 18px;
@@ -41,16 +42,71 @@
         .subtitle:hover {
             text-decoration: underline;
         }
+        .password-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .password-container input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .password-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .password-container button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
-    <div class="image-container">
-        <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
+    <div id="password-container" class="password-container">
+        <h2>비밀번호를 입력하세요</h2>
+        <input type="password" id="password" placeholder="비밀번호 입력">
+        <button onclick="checkPassword()">확인</button>
     </div>
-    <div class="title">목록</div>
-    <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'">공섹썰🌿</div>
-    <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
+
+    <div id="content" style="display: none;">
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
+        </div>
+        <div class="title">목록</div>
+        <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'">공섹썰🌿</div>
+        <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const inputPassword = document.getElementById('password').value;
+            const correctPassword = 'xJix720y';
+
+            if (inputPassword === correctPassword) {
+                document.getElementById('password-container').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } else {
+                alert('비밀번호가 틀렸습니다. 다시 시도해 주세요.');
+            }
+        }
+    </script>
 
 </body>
 </html>
