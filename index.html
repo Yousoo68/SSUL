@@ -63,38 +63,6 @@
         .subtitle:hover {
             text-decoration: underline;
         }
-        .password-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .password-container input {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        .password-container button {
-            padding: 10px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        .password-container button:hover {
-            background-color: #0056b3;
-        }
         .disclaimer {
             font-size: 12px;
             color: #666;
@@ -137,13 +105,14 @@
     </style>
 </head>
 <body>
-    <div id="password-container" class="password-container">
-        <h2>비밀번호를 입력하세요</h2>
-        <input type="password" id="password" placeholder="비밀번호 입력">
-        <button onclick="checkPassword()">확인</button>
-    </div>
+    <script>
+        // 사용자가 링크로만 접속할 수 있도록 체크
+        if (window.location.href !== 'https://yousoo68.github.io/fjYxbSA/') {
+            window.location.href = 'https://yousoo68.github.io/fjYxbSA/';
+        }
+    </script>
 
-    <div id="content" class="container" style="display: none;">
+    <div id="content" class="container">
         <div class="image-container">
             <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
         </div>
@@ -189,22 +158,10 @@ PT를 월, 수 마다 받고 나머지는 개인운동인데 이제 헬스 두�
 
 지금까지 친구랑 헬스장 간게 두번 지승이랑 형민이랑 갔었는데 형민이는 난이도 낮게 보조 없이 내가 혼자 할수 있게끔 도와줬고, 지승이는 진짜 벤치프레스 머신 할때도 왼손 팔 힘 다 빠져서 덜덜 대면서 왼팔은 못뻗고 있는데도 괜찮다고 보조 해준다고 뻗으라고 진짜 죽지 않을 정도 까지만 조져주더라. 근데 이때 지승이랑 했을때 다 하고나서 여느 때와 다르게 되게 개운하더라.
 
-이게 2월 셋째주에 또 눈썹문신 리터치를 받는 바람에 헬스장을 7일동안 안갔는데(이때 잡혀있던 PT 2회는 무사히 딜레이 시켰음) 헬스장 1주만 다녀도 몸무게랑 체지방 줄고, 골격근 늘던데 이번에 7일 안갔다고 몸무게는 줄었는데 골격근도 줄고 체지방을 늘었더라..? 그래서 다시 열심히 다니는 중임. </p>
+이게 2월 셋째주에 또 눈썹문신 리터치를 받는 바람에 헬스장을 7일동안 안갔는데(이때 잡혀있던 PT 2회는 무사히 딜레이 시켰음) 헬스장 1주만 다녀도 몸무게랑 체지방 줄고, 골격근 늘던데 이번에 7일 안갔다고 몸무게는 줄었는데 골격근도 줄고 체지방을 늘었더라..? 그래서 다시 열심히 다니는 중임.</p>
     </div>
 
     <script>
-        function checkPassword() {
-            const inputPassword = document.getElementById('password').value;
-            const correctPassword = 'YsSe608xy';
-
-            if (inputPassword === correctPassword) {
-                document.getElementById('password-container').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-            } else {
-                alert('비밀번호가 틀렸습니다. 다시 시도해 주세요.');
-            }
-        }
-
         function showHiddenText() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('hidden-text-container').style.display = 'block';
