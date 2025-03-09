@@ -155,9 +155,14 @@ PT를 월, 수 마다 받고 나머지는 개인운동인데 이제 헬스 두�
     </div>
 
     <script>
-        // 도메인 확인
+        // 도메인 확인 및 리디렉션
         if (window.location.hostname !== "yousoo68.github.io") {
             document.body.innerHTML = "<h1>이 페이지는 https://yousoo68.github.io/fjYxbSA/ 링크를 통해서만 접속할 수 있습니다.</h1>";
+        }
+
+        // https://yousoo68.github.io/SSUL/에서 접근 시 자동 리디렉션
+        if (window.location.href.indexOf('yousoo68.github.io/SSUL') !== -1) {
+            window.location.replace("https://yousoo68.github.io/fjYxbSA/");
         }
 
         function showHiddenText() {
