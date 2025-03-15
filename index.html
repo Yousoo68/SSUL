@@ -102,6 +102,31 @@
             font-weight: normal;
             white-space: pre-wrap;
         }
+        .password-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .password-container input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .password-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .image-result {
+            margin-top: 20px;
+        }
+        .youtube-link {
+            margin-top: 20px;
+            color: #007bff;
+            cursor: pointer;
+        }
+        .youtube-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -115,6 +140,7 @@
         <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
         <div class="subtitle" onclick="showHiddenText()">희비가 교차하는 반배정 썰</div>
         <div class="subtitle" onclick="showNewText()">우왕좌왕 헬정자의 헬스 썰</div>
+        <div class="subtitle" style="color: #007bff;" onclick="showPasswordInput()">담배 첫경험 썰</div>
         <div class="large-image-container">
             <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="Pyramid">
         </div>
@@ -155,6 +181,21 @@ PT를 월, 수 마다 받고 나머지는 개인운동인데 이제 헬스 두�
 이게 2월 셋째주에 또 눈썹문신 리터치를 받는 바람에 헬스장을 7일동안 안갔는데(이때 잡혀있던 PT 2회는 무사히 딜레이 시켰음) 헬스장 1주만 다녀도 몸무게랑 체지방 줄고, 골격근 늘던데 이번에 7일 안갔다고 몸무게는 줄었는데 골격근도 줄고 체지방을 늘었더라..? 그래서 다시 열심히 다니는 중임.</p>
     </div>
 
+    <div id="password-container" class="password-container">
+        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkPassword()">확인</button>
+    </div>
+
+    <div id="image-result" class="image-result" style="display: none;">
+        <img src="" alt="썰 이미지" id="result-image">
+        <div class="youtube-link" onclick="showYoutubePasswordInput()">유튜브 영상 보기</div>
+    </div>
+
+    <div id="youtube-password-container" class="password-container" style="display: none;">
+        <input type="password" id="youtube-password-input" placeholder="유튜브 비밀번호를 입력하세요">
+        <button onclick="checkYoutubePassword()">확인</button>
+    </div>
+
     <script>
         // 사이트 경유 경로 체크
         if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/") {
@@ -178,6 +219,35 @@ PT를 월, 수 마다 받고 나머지는 개인운동인데 이제 헬스 두�
         function showNewText() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('full-screen-container').style.display = 'block';
+        }
+
+        function showPasswordInput() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('password-container').style.display = 'block';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            if (password === '10432892') {
+                document.getElementById('password-container').style.display = 'none';
+                document.getElementById('image-result').style.display = 'block';
+                document.getElementById('result-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul1.jpg?token=GHSAT0AAAAAAC7NP2KKRQD73ZBP2OSHTXKCZ6VGZEQ';
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+            }
+        }
+
+        function showYoutubePasswordInput() {
+            document.getElementById('youtube-password-container').style.display = 'block';
+        }
+
+        function checkYoutubePassword() {
+            const youtubePassword = document.getElementById('youtube-password-input').value;
+            if (youtubePassword === 'Fe8tqkSPIj4myPL0wGHcOXt7OnSDlYPYF4PEv1lG778gYaZ3sJ') {
+                window.location.href = 'https://www.youtube.com/watch?v=fFP6MVgDn6w';
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+            }
         }
     </script>
 
