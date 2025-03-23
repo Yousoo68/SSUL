@@ -18,11 +18,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start; /* 변경: 상단 정렬 */
+            min-height: 100vh; /* 변경: 최소 높이를 화면 높이로 설정 */
             margin: 0;
             background-color: #f4f4f4;
-            overflow-y: auto;
+            overflow-y: auto; /* 스크롤 가능 */
         }
         .container {
             display: flex;
@@ -31,7 +31,8 @@
             width: 90%;
             max-width: 500px;
             text-align: center;
-            margin-top: 220px; /* 이미지 높이 + 여백 */
+            margin-top: 20px; /* 상단 여백 추가 */
+            margin-bottom: 20px; /* 하단 여백 추가 */
         }
         .image-container {
             width: 200px;
@@ -42,9 +43,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: fixed; /* 고정 위치 */
-            top: 10px; /* 상단에서 10px 떨어진 위치 */
-            z-index: 1000; /* 다른 요소 위에 표시 */
+            margin-bottom: 20px;
         }
         .image-container img {
             width: 100%;
@@ -171,11 +170,10 @@
 </head>
 <body>
 
-    <div class="image-container">
-        <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
-    </div>
-
     <div id="content" class="container">
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
+        </div>
         <div class="title">목록</div>
         <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'">공섹썰🌿</div>
         <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
