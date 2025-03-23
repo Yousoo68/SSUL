@@ -132,6 +132,14 @@
             height: auto;
             max-width: 100%;
         }
+        .youtube-link {
+            margin-top: 20px;
+            color: #007bff;
+            cursor: pointer;
+        }
+        .youtube-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -146,8 +154,8 @@
         <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul5.jpg')">희비가 교차하는 반배정 썰</div>
         <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
         <div class="subtitle" style="color: #007bff;" onclick="showPasswordInput()">담배 첫경험 썰</div>
+        <div class="subtitle" style="color: #007bff;" onclick="showPasswordInputForSSUL3()">중3때 아다 땐 첫경험 썰</div>
         <div class="subtitle" style="color: #007bff;" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
-        <div class="subtitle" style="color: #007bff;" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul3.jpg')">중3때 아다 땐 첫경험 썰</div>
         <div class="large-image-container">
             <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="Pyramid">
         </div>
@@ -162,6 +170,11 @@
     <div id="password-container" class="password-container">
         <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkPassword()">확인</button>
+    </div>
+
+    <div id="ssul3-password-container" class="password-container" style="display: none;">
+        <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkSSUL3Password()">확인</button>
     </div>
 
     <div id="image-result" class="image-result" style="display: none;">
@@ -204,12 +217,28 @@
             document.getElementById('password-container').style.display = 'block';
         }
 
+        function showPasswordInputForSSUL3() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('ssul3-password-container').style.display = 'block';
+        }
+
         function checkPassword() {
             const password = document.getElementById('password-input').value;
             if (password === '10432892') {
                 document.getElementById('password-container').style.display = 'none';
                 document.getElementById('image-result').style.display = 'block';
                 document.getElementById('result-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul1.jpg';
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+            }
+        }
+
+        function checkSSUL3Password() {
+            const password = document.getElementById('ssul3-password-input').value;
+            if (password === '39720453') {
+                document.getElementById('ssul3-password-container').style.display = 'none';
+                document.getElementById('full-screen-image-container').style.display = 'block';
+                document.getElementById('full-screen-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul3.jpg';
             } else {
                 alert('비밀번호가 틀렸습니다.');
             }
