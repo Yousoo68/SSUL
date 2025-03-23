@@ -31,6 +31,7 @@
             width: 90%;
             max-width: 500px;
             text-align: center;
+            margin-top: 220px; /* 이미지 높이 + 여백 */
         }
         .image-container {
             width: 200px;
@@ -41,7 +42,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            position: fixed; /* 고정 위치 */
+            top: 10px; /* 상단에서 10px 떨어진 위치 */
+            z-index: 1000; /* 다른 요소 위에 표시 */
         }
         .image-container img {
             width: 100%;
@@ -168,10 +171,11 @@
 </head>
 <body>
 
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
+    </div>
+
     <div id="content" class="container">
-        <div class="image-container">
-            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
-        </div>
         <div class="title">목록</div>
         <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'">공섹썰🌿</div>
         <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
