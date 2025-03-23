@@ -118,6 +118,20 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .image-result {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .image-result img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -133,7 +147,7 @@
         <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
         <div class="subtitle" style="color: #007bff;" onclick="showPasswordInput()">담배 첫경험 썰</div>
         <div class="subtitle" style="color: #007bff;" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
-        <div class="subtitle" style="color: #007bff;" onclick="showPasswordInputForImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul3.jpg')">중3때 아다 땐 첫경험 썰</div>
+        <div class="subtitle" style="color: #007bff;" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul3.jpg')">중3때 아다 땐 첫경험 썰</div>
         <div class="large-image-container">
             <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="Pyramid">
         </div>
@@ -188,15 +202,6 @@
         function showPasswordInput() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('password-container').style.display = 'block';
-        }
-
-        function showPasswordInputForImage(imageUrl) {
-            const password = prompt('비밀번호를 입력하세요:');
-            if (password === '39720453') {
-                showFullScreenImage(imageUrl);
-            } else {
-                alert('비밀번호가 틀렸습니다.');
-            }
         }
 
         function checkPassword() {
