@@ -13,16 +13,28 @@
     <link rel="manifest" href="manifest.json">
 
     <style>
+        :root {
+            --primary-color: #6a5acd;
+            --secondary-color: #9370db;
+            --accent-color: #ff69b4;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: var(--light-bg);
+            color: var(--text-color);
             overflow-y: auto;
+            line-height: 1.6;
         }
         .container {
             display: flex;
@@ -31,19 +43,21 @@
             width: 90%;
             max-width: 500px;
             text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
         .image-container {
-            width: 200px;
-            height: 200px;
-            background-color: #ccc;
-            border-radius: 10px;
+            width: 180px;
+            height: 180px;
+            background-color: white;
+            border-radius: 50%;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            border: 3px solid white;
         }
         .image-container img {
             width: 100%;
@@ -51,34 +65,51 @@
             object-fit: cover;
         }
         .title {
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
         }
         .subtitle {
             font-size: 16px;
-            color: #007bff;
+            color: var(--primary-color);
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            background-color: white;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            text-align: left;
         }
         .subtitle:hover {
-            text-decoration: underline;
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
         }
         .disclaimer {
             font-size: 12px;
-            color: #666;
-            margin-top: 20px;
-            padding: 0 10px;
+            color: #777;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            line-height: 1.5;
         }
         .large-image-container {
             width: 100%;
             max-width: 400px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
         }
         .large-image-container img {
             width: 100%;
             height: auto;
+            display: block;
         }
         .full-screen-image {
             width: 100%;
@@ -97,36 +128,57 @@
         .youtube-embed {
             width: 100%;
             max-width: 500px;
-            margin-top: 20px;
+            margin-top: 25px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
         }
         .youtube-embed iframe {
             width: 100%;
-            height: 300px;
+            height: 280px;
             border: none;
         }
         .password-container {
             display: none;
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             z-index: 1000;
+            width: 85%;
+            max-width: 350px;
         }
         .password-container input {
-            padding: 10px;
+            padding: 12px 15px;
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s;
+        }
+        .password-container input:focus {
+            border-color: var(--primary-color);
         }
         .password-container button {
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 16px;
             cursor: pointer;
             width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .password-container button:hover {
+            background-color: var(--secondary-color);
         }
         .image-result {
             width: 100%;
@@ -134,22 +186,63 @@
             overflow-y: scroll;
             background: white;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             position: relative;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .image-result img {
             width: 100%;
             height: auto;
             max-width: 100%;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
         }
         .youtube-link {
-            margin-top: 20px;
-            color: #007bff;
+            margin-top: 15px;
+            color: var(--primary-color);
             cursor: pointer;
+            font-weight: 600;
+            padding: 10px 15px;
+            background-color: rgba(106, 90, 205, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
         }
         .youtube-link:hover {
-            text-decoration: underline;
+            background-color: rgba(106, 90, 205, 0.2);
+        }
+        .category-button {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            margin: 10px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius);
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .category-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(106, 90, 205, 0.3);
+        }
+        .category-content {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        .bold-text {
+            font-weight: 700;
         }
     </style>
 </head>
@@ -157,33 +250,57 @@
 
     <div id="content" class="container">
         <div class="image-container">
-            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="정사각형 사진">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="프로필 이미지">
         </div>
-        <div class="title">목록</div>
-        <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'">공섹썰🌿</div>
-        <div class="subtitle" onclick="window.location.href='https://ssuldeep.neocities.org/'">공섹썰🌶</div>
-        <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul5.jpg')">희비가 교차하는 반배정 썰</div>
-        <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
-        <div class="subtitle" style="color: #007bff;" onclick="showPasswordInput()">담배 첫경험 썰</div>
-        <div class="subtitle" style="color: #007bff;" onclick="showPasswordInputForSSUL3()">중3때 아다 땐 첫경험 썰</div>
-        <div class="subtitle" style="color: #007bff;" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
+        <div class="title">섹시유수의 비밀 썰SSUL</div>
+        
+        <!-- P독자 전용 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
+        <div id="p-reader" class="category-content">
+            <div class="subtitle" style="color: var(--accent-color);" onclick="window.location.href='https://ssuldeep.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶</div>
+        </div>
+        
+        <!-- A독자 한정공개 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
+        <div id="a-limited" class="category-content">
+            <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showPasswordInputForSSUL3()">중3때 아다 땐 첫경험 썰</div>
+        </div>
+        
+        <!-- A독자 영구공개 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
+        <div id="a-permanent" class="category-content">
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showPasswordInput()">담배 첫경험 썰</div>
+        </div>
+        
+        <!-- 전체 영구공개 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
+        <div id="all-permanent" class="category-content">
+            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul5.jpg')">희비가 교차하는 반배정 썰</div>
+            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
+        </div>
+
         <div class="large-image-container">
-            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="Pyramid">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="피라미드 이미지">
         </div>
-        <div class="disclaimer">섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다. 가끔 수위가 매우 센 썰은 B독자에게는 비공개, A독자에게는 한정공개, P독자에게는 영구공개 합니다.<br>
+        <div class="disclaimer">섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다.<br><br>
+            가끔 수위가 매우 센 썰은 B독자에게는 비공개, A독자에게는 한정공개, P독자에게는 영구공개 합니다.<br>
             수위가 적당한 썰은 B독자에게는 비공개, A독자에게는 영구공개, P독자에게는 영구공개 합니다.<br>
-            수위가 약한 썰은 B독자, A독자, P독자 모두 에게 영구공개 합니다.</div>
+            수위가 약한 썰은 B독자, A독자, P독자 모두에게 영구공개 합니다.</div>
         <div class="youtube-embed">
             <iframe src="https://www.youtube.com/embed/z6h3d-gwwvQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
     <div id="password-container" class="password-container">
+        <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
         <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkPassword()">확인</button>
     </div>
 
     <div id="ssul3-password-container" class="password-container" style="display: none;">
+        <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
         <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkSSUL3Password()">확인</button>
     </div>
@@ -194,6 +311,7 @@
     </div>
 
     <div id="youtube-password-container" class="password-container" style="display: none;">
+        <h3 style="margin-top: 0; color: var(--primary-color);">영상 비밀번호 입력</h3>
         <input type="password" id="youtube-password-input" placeholder="영상을 보려면 비밀번호를 입력하세요">
         <button onclick="checkYoutubePassword()">확인</button>
     </div>
@@ -211,10 +329,19 @@
         // 도메인 확인
         if (window.location.hostname !== "yousoo68.github.io") {
             // 경고 메시지 표시 후 리다이렉트
-            document.body.innerHTML = "<h1>이 페이지는 https://yousoo68.github.io/fjYxbSA/ 링크를 통해서만 접속할 수 있습니다.</h1>";
+            document.body.innerHTML = "<h1 style='text-align: center; margin-top: 50px; color: var(--primary-color);'>이 페이지는 https://yousoo68.github.io/fjYxbSA/ 링크를 통해서만 접속할 수 있습니다.</h1>";
             setTimeout(function() {
                 window.location.href = "https://yousoo68.github.io/fjYxbSA/"; // 리다이렉트 URL
             }, 5000); // 5초 후 리다이렉트
+        }
+
+        function toggleCategory(categoryId) {
+            const category = document.getElementById(categoryId);
+            if (category.style.display === 'block') {
+                category.style.display = 'none';
+            } else {
+                category.style.display = 'block';
+            }
         }
 
         function showFullScreenImage(imageUrl) {
@@ -226,11 +353,13 @@
         function showPasswordInput() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('password-container').style.display = 'block';
+            document.getElementById('password-input').focus();
         }
 
         function showPasswordInputForSSUL3() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('ssul3-password-container').style.display = 'block';
+            document.getElementById('ssul3-password-input').focus();
         }
 
         function checkPassword() {
@@ -241,6 +370,8 @@
                 document.getElementById('result-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul1.jpg';
             } else {
                 alert('비밀번호가 틀렸습니다.');
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
             }
         }
 
@@ -252,11 +383,14 @@
                 document.getElementById('full-screen-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul3.jpg';
             } else {
                 alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul3-password-input').value = '';
+                document.getElementById('ssul3-password-input').focus();
             }
         }
 
         function showYoutubePasswordInput() {
             document.getElementById('youtube-password-container').style.display = 'block';
+            document.getElementById('youtube-password-input').focus();
         }
 
         function checkYoutubePassword() {
@@ -265,6 +399,8 @@
                 window.location.href = 'https://www.youtube.com/watch?v=EgPQGvbsKy0';
             } else {
                 alert('비밀번호가 틀렸습니다.');
+                document.getElementById('youtube-password-input').value = '';
+                document.getElementById('youtube-password-input').focus();
             }
         }
 
