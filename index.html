@@ -556,7 +556,7 @@
         <!-- A독자 영구공개 썰 버튼 -->
         <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
         <div id="a-permanent" class="category-content">
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showPasswordInput()">담배 첫경험 썰</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul1.jpg')">담배 첫경험 썰</div>
         </div>
         
         <!-- 전체 영구공개 썰 버튼 -->
@@ -580,12 +580,6 @@
     </div>
 
     <!-- 비밀번호 입력 모달 -->
-    <div id="password-container" class="password-container">
-        <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
-        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
-        <button onclick="checkPassword()">확인</button>
-    </div>
-
     <div id="ssul3-password-container" class="password-container" style="display: none;">
         <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
         <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
@@ -828,12 +822,6 @@
             document.getElementById('full-screen-image').src = imageUrl;
         }
 
-        function showPasswordInput() {
-            document.getElementById('content').style.display = 'none';
-            document.getElementById('password-container').style.display = 'block';
-            document.getElementById('password-input').focus();
-        }
-
         function showPasswordInputForSSUL3() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('ssul3-password-container').style.display = 'block';
@@ -844,19 +832,6 @@
             document.getElementById('content').style.display = 'none';
             document.getElementById('ssul6-password-container').style.display = 'block';
             document.getElementById('ssul6-password-input').focus();
-        }
-
-        function checkPassword() {
-            const password = document.getElementById('password-input').value;
-            if (password === '10432892') {
-                document.getElementById('password-container').style.display = 'none';
-                document.getElementById('image-result').style.display = 'block';
-                document.getElementById('result-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul1.jpg';
-            } else {
-                alert('비밀번호가 틀렸습니다.');
-                document.getElementById('password-input').value = '';
-                document.getElementById('password-input').focus();
-            }
         }
 
         function checkSSUL3Password() {
