@@ -543,6 +543,7 @@
         <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
         <div id="p-reader" class="category-content">
             <div class="subtitle" style="color: var(--accent-color);" onclick="window.location.href='https://ssuldeep.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶</div>
+            <div class="subtitle" style="color: var(--accent-color);" onclick="showSSUL6PasswordInput()">질싸할 뻔한 썰</div>
         </div>
         
         <!-- A독자 한정공개 썰 버튼 -->
@@ -589,6 +590,12 @@
         <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
         <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkSSUL3Password()">확인</button>
+    </div>
+
+    <div id="ssul6-password-container" class="password-container" style="display: none;">
+        <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
+        <input type="password" id="ssul6-password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkSSUL6Password()">확인</button>
     </div>
 
     <div id="image-result" class="image-result" style="display: none;">
@@ -828,6 +835,12 @@
             document.getElementById('ssul3-password-input').focus();
         }
 
+        function showSSUL6PasswordInput() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('ssul6-password-container').style.display = 'block';
+            document.getElementById('ssul6-password-input').focus();
+        }
+
         function checkPassword() {
             const password = document.getElementById('password-input').value;
             if (password === '10432892') {
@@ -851,6 +864,19 @@
                 alert('비밀번호가 틀렸습니다.');
                 document.getElementById('ssul3-password-input').value = '';
                 document.getElementById('ssul3-password-input').focus();
+            }
+        }
+
+        function checkSSUL6Password() {
+            const password = document.getElementById('ssul6-password-input').value;
+            if (password === 'v5W3OZn1vTSpiw1rimJ4aE1sIiQBLBRcVRNntusGpPNkydEPlA73KURVdSNCKplslRco0a8PspdvrvZy1YpZTEwSUIdCTqkaGc4qD9W298kUKeSInVbo4S3mV6UCWp9jKhU7WEO4jKrCeACy1CIlBCJMnI1GPvex7v4qpFtFOvmWLXkSyAWRihs33sLBc47EJ7Xjn2Ne') {
+                document.getElementById('ssul6-password-container').style.display = 'none';
+                document.getElementById('full-screen-image-container').style.display = 'block';
+                document.getElementById('full-screen-image').src = 'https://i.ibb.co/0y9nd2Q6/SSUL6.jpg';
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul6-password-input').value = '';
+                document.getElementById('ssul6-password-input').focus();
             }
         }
 
