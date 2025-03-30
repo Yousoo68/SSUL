@@ -98,6 +98,11 @@
             background-color: #f0f0f0;
             transform: translateY(-2px);
         }
+        .subtitle.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
         .disclaimer {
             font-size: 12px;
             color: #777;
@@ -710,8 +715,8 @@
                 const email = user?.email || currentUser?.email;
                 userEmail.textContent = email;
                 
-                // 권한에 따라 카테고리 표시/숨김 처리
-                updateCategoryVisibility(email);
+                // 권한에 따라 카테고리 활성화/비활성화 처리
+                updateCategoryAccess(email);
             } else {
                 // 로그아웃 상태
                 authSection.style.display = 'block';
@@ -724,28 +729,37 @@
             }
         }
 
-        // 권한에 따라 카테고리 표시/숨김 처리
-        function updateCategoryVisibility(email) {
-            // 모든 카테고리 숨기기
-            document.querySelectorAll('.category-button').forEach(btn => {
-                btn.style.display = 'none';
+        // 권한에 따라 카테고리 활성화/비활성화 처리
+        function updateCategoryAccess(email) {
+            // 모든 서브타이틀 요소 가져오기
+            const subtitles = document.querySelectorAll('.subtitle');
+            
+            // 모든 서브타이틀 비활성화
+            subtitles.forEach(subtitle => {
+                subtitle.classList.add('disabled');
             });
             
-            // 전체 영구공개 썰 버튼은 항상 표시
-            document.querySelector('.category-button[onclick="toggleCategory(\'all-permanent\')"]').style.display = 'block';
+            // 전체 영구공개 썰은 항상 활성화
+            document.querySelectorAll('#all-permanent .subtitle').forEach(subtitle => {
+                subtitle.classList.remove('disabled');
+            });
             
-            // P 계정인 경우 (모든 버튼 표시)
+            // P 계정인 경우 (모든 서브타이틀 활성화)
             if (P_ACCOUNTS.includes(email)) {
-                document.querySelectorAll('.category-button').forEach(btn => {
-                    btn.style.display = 'block';
+                subtitles.forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
                 });
             } 
-            // A 계정인 경우 (전체, A독자 버튼 표시)
+            // A 계정인 경우 (A독자 관련 서브타이틀 활성화)
             else if (email === A_ACCOUNT) {
-                document.querySelector('.category-button[onclick="toggleCategory(\'a-limited\')"]').style.display = 'block';
-                document.querySelector('.category-button[onclick="toggleCategory(\'a-permanent\')"]').style.display = 'block';
+                document.querySelectorAll('#a-limited .subtitle').forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
+                });
+                document.querySelectorAll('#a-permanent .subtitle').forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
+                });
             }
-            // 그 외 계정은 전체 영구공개 썰 버튼만 표시
+            // Guest 또는 그 외 계정은 전체 영구공개 썰만 활성화 (이미 위에서 처리됨)
         }
 
         // 공통 함수들
