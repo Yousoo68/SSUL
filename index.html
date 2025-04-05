@@ -25,7 +25,25 @@
             --border-radius: 12px;
         }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
         /* 로그인 패널 스타일 */
+        .auth-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
         .auth-container {
             background: white;
             border-radius: var(--radius);
@@ -33,7 +51,6 @@
             overflow: hidden;
             width: 90%;
             max-width: 500px;
-            margin: 20px auto;
         }
         
         .tabs {
@@ -217,25 +234,24 @@
             cursor: pointer;
         }
 
-        /* 컨텐츠 스타일 */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
+        @media (max-width: 768px) {
+            .auth-container { padding: 1rem; }
+            .tab-content { padding: 1.5rem; }
+        }
+
+        /* 콘텐츠 섹션 스타일 */
+        .content-section {
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
-            margin: 0;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
             padding: 20px;
-            overflow-x: hidden;
-            touch-action: manipulation;
+            width: 100%;
         }
 
         .container {
-            display: none; /* 초기에는 숨김 */
+            display: flex;
             flex-direction: column;
             align-items: center;
             width: 90%;
@@ -293,7 +309,13 @@
         .subtitle.disabled {
             color: #999;
             cursor: not-allowed;
-            pointer-events: none;
+            background-color: #f5f5f5;
+            opacity: 0.6; /* 흐리게 처리 */
+        }
+
+        .subtitle.disabled:hover {
+            background-color: #f5f5f5;
+            transform: none;
         }
 
         .disclaimer {
@@ -376,103 +398,105 @@
             overflow: auto;
             -webkit-overflow-scrolling: touch;
             display: none;
-        }
-
-        .image-viewer img {
-            width: 100vw;
-            height: auto;
-            display: block;
             touch-action: pan-y;
         }
 
-        /* 이미지가 화면 높이보다 작을 경우 중앙 정렬 */
         .image-container-full {
-            width: 100vw;
+            width: 100%;
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 20px 0; /* 상하 여백 추가 */
         }
 
-        @media (max-width: 768px) {
-            .auth-container { padding: 1rem; }
-            .tab-content { padding: 1.5rem; }
+        .image-container-full img {
+            max-width: 100%;
+            max-height: none;
+            width: auto;
+            height: auto;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
     <!-- 인증 섹션 -->
-    <div class="auth-container">
-        <div class="tabs">
-            <div class="tab active" data-tab="login">로그인</div>
-        </div>
-        
-        <div class="tab-content">
-            <div id="login" class="tab-pane active">
-                <div id="login-message" class="message hidden"></div>
-                
-                <div class="social-login">
-                    <button id="guest-login-btn" class="btn btn-guest">
-                        Guest로 로그인
-                    </button>
+    <div class="auth-section">
+        <div class="auth-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="login">로그인</div>
+            </div>
+            
+            <div class="tab-content">
+                <div id="login" class="tab-pane active">
+                    <div id="login-message" class="message hidden"></div>
                     
-                    <div class="divider">
-                        <span></span>
-                        <span>OR</span>
-                        <span></span>
+                    <div class="social-login">
+                        <button id="guest-login-btn" class="btn btn-guest">
+                            Guest로 로그인
+                        </button>
+                        
+                        <div class="divider">
+                            <span></span>
+                            <span>OR</span>
+                            <span></span>
+                        </div>
+                        
+                        <button id="google-login-btn" class="btn btn-google btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                                <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+                            </svg>
+                            Google로 로그인
+                        </button>
                     </div>
-                    
-                    <button id="google-login-btn" class="btn btn-google btn-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                            <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
-                        </svg>
-                        Google로 로그인
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 컨텐츠 섹션 -->
-    <div class="container">
-        <div class="image-container">
-            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="프로필 이미지">
-        </div>
-        <div class="title">섹시유수의 비밀 썰SSUL</div>
-        
-        <!-- 카테고리 버튼들 -->
-        <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
-        <div id="p-reader" class="category-content">
-            <div class="subtitle" style="color: var(--accent-color);" onclick="showImage('https://i.ibb.co/TMRn3SbR/Bpqtm4xnra.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶(매운맛)</div>
-            <div class="subtitle" style="color: var(--accent-color);" onclick="showImage('https://i.ibb.co/mrNnKVmF/8h-MJu-Bs-B6-K.jpg')">질싸할 뻔한 썰</div>
-        </div>
-        
-        <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
-        <div id="a-limited" class="category-content">
-            <div class="subtitle" onclick="showImage('https://i.ibb.co/cKg3Vrdt/DPQHh-Hj-Ts-Q.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿(순한맛)</div>
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/6JNbncnG/J16-JKu-FTL9.jpg')">중3때 아다 땐 첫경험 썰</div>
-        </div>
-        
-        <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
-        <div id="a-permanent" class="category-content">
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/KpvZFGTM/K3eu95v-MJU.jpg', true)">담배 첫경험 썰</div>
-        </div>
-        
-        <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
-        <div id="all-permanent" class="category-content">
-            <div class="subtitle" onclick="showImage('https://i.ibb.co/Z6cdJbpM/cnf-KMGI1-FR.jpg')">희비가 교차하는 반배정 썰</div>
-            <div class="subtitle" onclick="showImage('https://i.ibb.co/9kMcQVDK/s-R3u-U3ga-Qu.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/PsNrQ51d/nw-Wt5-Qba-Ho.jpg')">신의 아들임과 동시에 신의 조카가 된 썰</div>
-        </div>
+    <!-- 콘텐츠 섹션 -->
+    <div id="content-section" class="content-section">
+        <div class="container">
+            <div class="image-container">
+                <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="프로필 이미지">
+            </div>
+            <div class="title">섹시유수의 비밀 썰SSUL</div>
+            
+            <!-- 카테고리 버튼들 -->
+            <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
+            <div id="p-reader" class="category-content">
+                <div class="subtitle" style="color: var(--accent-color);" onclick="showImage('https://i.ibb.co/TMRn3SbR/Bpqtm4xnra.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶(매운맛)</div>
+                <div class="subtitle" style="color: var(--accent-color);" onclick="showImage('https://i.ibb.co/mrNnKVmF/8h-MJu-Bs-B6-K.jpg')">질싸할 뻔한 썰</div>
+            </div>
+            
+            <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
+            <div id="a-limited" class="category-content">
+                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/cKg3Vrdt/DPQHh-Hj-Ts-Q.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿(순한맛)</div>
+                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/6JNbncnG/J16-JKu-FTL9.jpg')">중3때 아다 땐 첫경험 썰</div>
+            </div>
+            
+            <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
+            <div id="a-permanent" class="category-content">
+                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/KpvZFGTM/K3eu95v-MJU.jpg', true)" id="tobacco-story">담배 첫경험 썰</div>
+            </div>
+            
+            <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
+            <div id="all-permanent" class="category-content">
+                <div class="subtitle" onclick="showImage('https://i.ibb.co/Z6cdJbpM/cnf-KMGI1-FR.jpg')" id="assignment-story">희비가 교차하는 반배정 썰</div>
+                <div class="subtitle" onclick="showImage('https://i.ibb.co/9kMcQVDK/s-R3u-U3ga-Qu.jpg')" id="gym-story">우왕좌왕 헬정자의 헬스 썰</div>
+                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/PsNrQ51d/nw-Wt5-Qba-Ho.jpg')" id="god-story">신의 아들임과 동시에 신의 조카가 된 썰</div>
+            </div>
 
-        <div class="large-image-container">
-            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="피라미드 이미지">
-        </div>
-        <div class="disclaimer">
-            섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다.
-        </div>
-        <div class="youtube-embed">
-            <iframe src="https://www.youtube.com/embed/z6h3d-gwwvQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="large-image-container">
+                <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="피라미드 이미지">
+            </div>
+            <div class="disclaimer">
+                섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다.
+            </div>
+            <div class="youtube-embed">
+                <iframe src="https://www.youtube.com/embed/z6h3d-gwwvQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
@@ -518,6 +542,9 @@
             'seubuntb@gmail.com'
         ];
 
+        // 리디렉션 계정 (위에 정의된 계정 외 모든 계정)
+        const REDIRECT_URL = 'https://yousoo68.github.io/fjYxbSA/';
+
         // Firebase 구성
         const firebaseConfig = {
             apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
@@ -534,8 +561,8 @@
         const auth = firebase.auth();
 
         // DOM 요소
-        const authContainer = document.querySelector('.auth-container');
-        const container = document.querySelector('.container');
+        const authSection = document.querySelector('.auth-section');
+        const contentSection = document.getElementById('content-section');
         const logoutBtn = document.getElementById('logout-btn');
         const guestLoginBtn = document.getElementById('guest-login-btn');
         const googleLoginBtn = document.getElementById('google-login-btn');
@@ -546,7 +573,7 @@
         // 사용자 상태 변수
         let currentUser = null;
         let isGuest = false;
-        let userType = null; // 'p', 'a', 'b' 또는 null
+        let userRole = null; // 'P_READER', 'A_READER', 'B_READER' 또는 null
 
         // Guest 로그인 핸들러
         guestLoginBtn.addEventListener('click', () => {
@@ -555,8 +582,9 @@
                 email: 'guest@example.com',
                 isGuest: true
             };
-            userType = null;
+            userRole = 'B_READER'; // 게스트는 B_READER 권한 부여
             updateUI(currentUser);
+            setupContentAccess(); // 콘텐츠 접근 설정
         });
 
         // Google 로그인 핸들러
@@ -567,17 +595,16 @@
                 currentUser = result.user;
                 isGuest = false;
                 
-                // 사용자 유형 확인
+                // 계정 분류 확인
                 if (P_READER.includes(currentUser.email)) {
-                    userType = 'p';
+                    userRole = 'P_READER';
                 } else if (A_READER.includes(currentUser.email)) {
-                    userType = 'a';
+                    userRole = 'A_READER';
                 } else if (B_READER.includes(currentUser.email)) {
-                    userType = 'b';
+                    userRole = 'B_READER';
                 } else {
-                    // 허용되지 않은 사용자는 리디렉션
-                    await auth.signOut();
-                    window.location.href = 'https://yousoo68.github.io/fjYxbSA/';
+                    // 정의된 계정이 아닌 경우 리디렉션
+                    window.location.href = REDIRECT_URL;
                     return;
                 }
                 
@@ -594,13 +621,13 @@
                 // Guest 로그아웃
                 currentUser = null;
                 isGuest = false;
-                userType = null;
+                userRole = null;
                 updateUI(null);
             } else {
                 // Google 계정 로그아웃
                 auth.signOut().then(() => {
                     currentUser = null;
-                    userType = null;
+                    userRole = null;
                     updateUI(null);
                 }).catch((error) => {
                     console.error('로그아웃 오류:', error);
@@ -608,77 +635,119 @@
             }
         });
 
+        // 콘텐츠 접근 설정 함수
+        function setupContentAccess() {
+            // 모든 카테고리 버튼 활성화
+            const categoryButtons = document.querySelectorAll('.category-button');
+            categoryButtons.forEach(button => {
+                button.style.pointerEvents = 'auto';
+                button.style.opacity = '1';
+            });
+
+            // 모든 카테고리 콘텐츠 펼치기
+            const categoryContents = document.querySelectorAll('.category-content');
+            categoryContents.forEach(content => {
+                content.style.display = 'block';
+            });
+
+            // P_READER: 모든 콘텐츠 활성화
+            if (userRole === 'P_READER') {
+                const allSubtitles = document.querySelectorAll('.subtitle');
+                allSubtitles.forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
+                });
+                return;
+            }
+
+            // A_READER: 특정 콘텐츠만 활성화
+            if (userRole === 'A_READER') {
+                const subtitles = document.querySelectorAll('.subtitle');
+                subtitles.forEach(subtitle => {
+                    // '담배 첫경험 썰', '희비가 교차하는 반배정 썰', '우왕좌왕 헬정자의 헬스 썰', '신의 아들임과 동시에 신의 조카가 된 썰'만 활성화
+                    const allowedIds = ['tobacco-story', 'assignment-story', 'gym-story', 'god-story'];
+                    if (!allowedIds.includes(subtitle.id)) {
+                        subtitle.classList.add('disabled');
+                        subtitle.onclick = null;
+                    }
+                });
+                return;
+            }
+
+            // B_READER 또는 게스트: 특정 콘텐츠만 활성화
+            if (userRole === 'B_READER') {
+                const subtitles = document.querySelectorAll('.subtitle');
+                subtitles.forEach(subtitle => {
+                    // '희비가 교차하는 반배정 썰', '우왕좌왕 헬정자의 헬스 썰', '신의 아들임과 동시에 신의 조카가 된 썰'만 활성화
+                    const allowedIds = ['assignment-story', 'gym-story', 'god-story'];
+                    if (!allowedIds.includes(subtitle.id)) {
+                        subtitle.classList.add('disabled');
+                        subtitle.onclick = null;
+                    }
+                });
+                return;
+            }
+
+            // 기타: 모든 콘텐츠 비활성화
+            const subtitles = document.querySelectorAll('.subtitle');
+            subtitles.forEach(subtitle => {
+                subtitle.classList.add('disabled');
+                subtitle.onclick = null;
+            });
+        }
+
         // UI 업데이트 함수
         function updateUI(user) {
             if (user || currentUser) {
                 // 로그인 상태
-                authContainer.style.display = 'none';
-                container.style.display = 'flex';
+                authSection.style.display = 'none';
+                contentSection.style.display = 'flex';
                 userInfo.style.display = 'flex';
                 
                 const email = user?.email || currentUser?.email;
                 userEmail.textContent = email;
             } else {
                 // 로그아웃 상태
-                authContainer.style.display = 'block';
-                container.style.display = 'none';
+                authSection.style.display = 'flex';
+                contentSection.style.display = 'none';
                 userInfo.style.display = 'none';
                 
                 // 변수 초기화
                 currentUser = null;
                 isGuest = false;
-                userType = null;
+                userRole = null;
             }
         }
 
-        // 컨텐츠 접근 설정 함수
-        function setupContentAccess() {
-            if (!userType) return;
-
-            // 모든 서브타이틀 요소 가져오기
-            const subtitles = document.querySelectorAll('.subtitle');
-            
-            // 모든 서브타이틀 비활성화
-            subtitles.forEach(subtitle => {
-                subtitle.classList.add('disabled');
-            });
-
-            // 사용자 유형에 따라 특정 서브타이틀 활성화
-            if (userType === 'p') {
-                // P_READER: 모든 서브타이틀 활성화
-                subtitles.forEach(subtitle => {
-                    subtitle.classList.remove('disabled');
-                });
-            } else if (userType === 'a') {
-                // A_READER: 특정 서브타이틀만 활성화
-                const allowedTitles = [
-                    "담배 첫경험 썰",
-                    "희비가 교차하는 반배정 썰",
-                    "우왕좌왕 헬정자의 헬스 썰",
-                    "신의 아들임과 동시에 신의 조카가 된 썰"
-                ];
+        // 인증 상태 리스너
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = user;
+                isGuest = false;
                 
-                subtitles.forEach(subtitle => {
-                    if (allowedTitles.some(title => subtitle.textContent.includes(title))) {
-                        subtitle.classList.remove('disabled');
-                    }
-                });
-            } else if (userType === 'b') {
-                // B_READER: 특정 서브타이틀만 활성화
-                const allowedTitles = [
-                    "희비가 교차하는 반배정 썰",
-                    "우왕좌왕 헬정자의 헬스 썰",
-                    "신의 아들임과 동시에 신의 조카가 된 썰"
-                ];
+                // 계정 분류 확인
+                if (P_READER.includes(currentUser.email)) {
+                    userRole = 'P_READER';
+                } else if (A_READER.includes(currentUser.email)) {
+                    userRole = 'A_READER';
+                } else if (B_READER.includes(currentUser.email)) {
+                    userRole = 'B_READER';
+                } else {
+                    // 정의된 계정이 아닌 경우 리디렉션
+                    window.location.href = REDIRECT_URL;
+                    return;
+                }
                 
-                subtitles.forEach(subtitle => {
-                    if (allowedTitles.some(title => subtitle.textContent.includes(title))) {
-                        subtitle.classList.remove('disabled');
-                    }
-                });
+                updateUI(user);
+                setupContentAccess();
+            } else {
+                updateUI(null);
             }
-        }
+        });
 
+        // 초기 UI 설정
+        updateUI(null);
+
+        // 콘텐츠 관련 함수들
         // 카테고리 토글 기능
         function toggleCategory(categoryId) {
             const category = document.getElementById(categoryId);
@@ -700,18 +769,15 @@
             
             // 이미지 로드 후 크기 조정
             img.onload = function() {
-                if (img.naturalHeight > window.innerHeight) {
-                    img.style.width = '100vw';
-                    img.style.height = 'auto';
-                } else {
-                    // 이미지가 화면 높이보다 작으면 세로 중앙 정렬
-                    img.style.width = 'auto';
-                    img.style.height = '100vh';
-                }
+                // 이미지가 화면보다 클 경우 자동으로 스크롤 가능
+                img.style.maxWidth = 'none';
+                img.style.maxHeight = 'none';
+                img.style.width = 'auto';
+                img.style.height = 'auto';
             };
 
-            // 담배 첫경험 썰 하단 클릭 리디렉션 (P_READER만 가능)
-            if (hasRedirect && userType === 'p') {
+            // P_READER만 담배 첫경험 썰 하단 클릭 리디렉션 활성화
+            if (hasRedirect && userRole === 'P_READER') {
                 img.onclick = function(e) {
                     const rect = this.getBoundingClientRect();
                     const y = e.clientY - rect.top;
@@ -737,37 +803,6 @@
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
-
-        // 인증 상태 리스너
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                currentUser = user;
-                isGuest = false;
-                
-                // 사용자 유형 확인
-                if (P_READER.includes(user.email)) {
-                    userType = 'p';
-                } else if (A_READER.includes(user.email)) {
-                    userType = 'a';
-                } else if (B_READER.includes(user.email)) {
-                    userType = 'b';
-                } else {
-                    // 허용되지 않은 사용자는 리디렉션
-                    auth.signOut().then(() => {
-                        window.location.href = 'https://yousoo68.github.io/fjYxbSA/';
-                    });
-                    return;
-                }
-                
-                updateUI(user);
-                setupContentAccess();
-            } else {
-                updateUI(null);
-            }
-        });
-
-        // 초기 UI 설정
-        updateUI(null);
     </script>
 </body>
 </html>
