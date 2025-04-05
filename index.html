@@ -472,7 +472,7 @@
             
             <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
             <div id="a-limited" class="category-content">
-                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/cKg3Vrdt/DPQHh-Hj-Ts-Q.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿(순한맛)</div>
+                <div class="subtitle" onclick="showImage('https://i.ibb.co/cKg3Vrdt/DPQHh-Hj-Ts-Q.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿(순한맛)</div>
                 <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/6JNbncnG/J16-JKu-FTL9.jpg')">중3때 아다 땐 첫경험 썰</div>
             </div>
             
@@ -582,9 +582,8 @@
                 email: 'guest@example.com',
                 isGuest: true
             };
-            userRole = 'B_READER'; // 게스트는 B_READER 권한 부여
+            userRole = null;
             updateUI(currentUser);
-            setupContentAccess(); // 콘텐츠 접근 설정
         });
 
         // Google 로그인 핸들러
@@ -673,7 +672,7 @@
                 return;
             }
 
-            // B_READER 또는 게스트: 특정 콘텐츠만 활성화
+            // B_READER: 특정 콘텐츠만 활성화
             if (userRole === 'B_READER') {
                 const subtitles = document.querySelectorAll('.subtitle');
                 subtitles.forEach(subtitle => {
@@ -687,7 +686,7 @@
                 return;
             }
 
-            // 기타: 모든 콘텐츠 비활성화
+            // Guest 또는 기타: 모든 콘텐츠 비활성화
             const subtitles = document.querySelectorAll('.subtitle');
             subtitles.forEach(subtitle => {
                 subtitle.classList.add('disabled');
