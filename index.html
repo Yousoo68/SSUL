@@ -20,8 +20,8 @@
         .subtitle.disabled{cursor:not-allowed;opacity:0.5;pointer-events:none}
         .disclaimer{font-size:12px;color:#777;margin-top:25px;padding:15px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);line-height:1.5}
         .large-image-container{width:100%;max-width:400px;margin-bottom:25px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-        .large-image-container img{width:100%;height:auto;display:block}
-        .full-screen-image{width:100%;height:100vh;overflow-y:scroll;background:#fff;display:flex;justify-content:center;align-items:flex-start}
+        .large-image-container img{width:100%;height:auto;display:block;position:relative}
+        .full-screen-image{width:100%;height:100vh;overflow-y:scroll;background:#fff;display:flex;justify-content:center;align-items:flex-start;position:relative}
         .full-screen-image img{width:100%;height:auto;max-width:100%}
         .youtube-embed{width:100%;max-width:500px;margin-top:25px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
         .youtube-embed iframe{width:100%;height:280px;border:none}
@@ -61,6 +61,9 @@
         .hidden{display:none!important}
         .user-info{position:fixed;top:10px;right:10px;background:#fff;padding:8px 12px;border-radius:20px;box-shadow:var(--sh);font-size:14px;z-index:1000;display:flex;align-items:center}
         .logout-btn{margin-left:8px;background:#ff3333;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
+        .close-btn{position:absolute;top:20px;right:20px;background:#ff3333;color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:20px;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center}
+        .find-password{color:var(--p);text-align:center;margin-top:10px;cursor:pointer;font-size:14px;text-decoration:underline}
+        .image-bottom-area{position:absolute;bottom:0;left:0;width:100%;height:10%;background:rgba(0,0,0,0.3);cursor:pointer;z-index:100}
         @media (max-width:768px){.auth-section,.container{padding:1rem}.tab-content{padding:1.5rem}}
     </style>
 </head>
@@ -115,23 +118,30 @@
         <h3 style="margin-top:0;color:var(--p)">비밀번호 입력</h3>
         <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkSSUL3Password()">확인</button>
+        <div id="find-password" class="find-password" onclick="redirectToPasswordHelp()">비밀번호 찾기</div>
+        <button class="close-btn" onclick="closePasswordContainer('ssul3')">×</button>
     </div>
     <div id="ssul6-password-container" class="password-container" style="display:none">
         <h3 style="margin-top:0;color:var(--p)">비밀번호 입력</h3>
         <input type="password" id="ssul6-password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkSSUL6Password()">확인</button>
+        <button class="close-btn" onclick="closePasswordContainer('ssul6')">×</button>
     </div>
     <div id="image-result" class="image-result" style="display:none">
         <img src="" alt="썰" id="result-image">
         <div class="youtube-link" onclick="showYoutubePasswordInput()">윗 썰에서 아담 부분 당시, 학원 쉬는시간에 흡연 당시, 첫연초 당시 영상 보기</div>
+        <button class="close-btn" onclick="closeFullScreenImage()">×</button>
     </div>
     <div id="youtube-password-container" class="password-container" style="display:none">
         <h3 style="margin-top:0;color:var(--p)">영상 비밀번호 입력</h3>
         <input type="password" id="youtube-password-input" placeholder="영상을 보려면 비밀번호를 입력하세요">
         <button onclick="checkYoutubePassword()">확인</button>
+        <button class="close-btn" onclick="closePasswordContainer('youtube')">×</button>
     </div>
     <div id="full-screen-image-container" class="full-screen-image" style="display:none">
         <img src="" alt="전체 화면 이미지" id="full-screen-image">
+        <div id="image-bottom-area" class="image-bottom-area" style="display:none"></div>
+        <button class="close-btn" onclick="closeFullScreenImage()">×</button>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -139,29 +149,230 @@
         if(document.referrer!=="https://yousoo68.github.io/fjYxbSA/")window.location.href="https://yousoo68.github.io/fjYxbSA/";
         if(window.location.hostname!=="yousoo68.github.io"){document.body.innerHTML="<h1 style='text-align:center;margin-top:50px;color:var(--p)'>이 페이지는 https://yousoo68.github.io/fjYxbSA/ 링크를 통해서만 접속할 수 있습니다.</h1>";setTimeout(()=>{window.location.href="https://yousoo68.github.io/fjYxbSA/"},5000)}
         const P_ACCOUNTS=['fjrtufl9909@gmail.com','minjune003956@gmail.com','sexyyousoo68@gmail.com','seojunna73@gmail.com','seyun07070782@gmail.com','chaejun0708@gmail.com','sonhyeonmins@gmail.com','rang330579@gmail.com','seonuh777@gmail.com','gogumaa0712@gmail.com','kjuho0716@gmail.com'];
-        const A_ACCOUNT=['shinjonghwan0430@gmail.com','fofmmm1605@gmail.com','shinyousoo68@gmail.com'];
+        const A_ACCOUNTS=['shinjonghwan0430@gmail.com','fofmmm1605@gmail.com','shinyousoo68@gmail.com'];
         const firebaseConfig={apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",authDomain:"login-34bef.firebaseapp.com",projectId:"login-34bef",storageBucket:"login-34bef.appspot.com",messagingSenderId:"888738257773",appId:"1:888738257773:web:b1c5a99b41996c3ac2d864",measurementId:"G-MJB1NJH05M"};
         firebase.initializeApp(firebaseConfig);const auth=firebase.auth();
-        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),loginMessage=document.getElementById('login-message'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email');
+        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),loginMessage=document.getElementById('login-message'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email'),findPassword=document.getElementById('find-password');
         let currentUser=null,isGuest=false;
-        guestLoginBtn.addEventListener('click',()=>{isGuest=true;currentUser={email:'guest@example.com',isGuest:true};updateUI(currentUser)});
-        googleLoginBtn.addEventListener('click',async()=>{try{const provider=new firebase.auth.GoogleAuthProvider();const result=await auth.signInWithPopup(provider);currentUser=result.user;isGuest=false;updateUI(currentUser)}catch(error){handleAuthError(error,loginMessage)}});
-        logoutBtn.addEventListener('click',()=>{if(isGuest){currentUser=null;isGuest=false;updateUI(null)}else{auth.signOut().then(()=>{currentUser=null;updateUI(null)}).catch((error)=>{console.error('로그아웃 오류:',error)})}});
-        function updateUI(user){if(user||currentUser){authSection.style.display='none';contentSection.style.display='flex';userInfo.style.display='flex';const email=user?.email||currentUser?.email;userEmail.textContent=email;updateCategoryAccess(email)}else{authSection.style.display='block';contentSection.style.display='none';userInfo.style.display='none';currentUser=null;isGuest=false}}
-        function updateCategoryAccess(email){const subtitles=document.querySelectorAll('.subtitle');subtitles.forEach(subtitle=>{subtitle.classList.add('disabled')});document.querySelectorAll('#all-permanent .subtitle').forEach(subtitle=>{subtitle.classList.remove('disabled')});if(P_ACCOUNTS.includes(email)){subtitles.forEach(subtitle=>{subtitle.classList.remove('disabled')})}else if(email===A_ACCOUNT){document.querySelectorAll('#a-limited .subtitle').forEach(subtitle=>{subtitle.classList.remove('disabled')});document.querySelectorAll('#a-permanent .subtitle').forEach(subtitle=>{subtitle.classList.remove('disabled')})}}
-        function showMessage(element,text,type){if(!element)return;element.textContent=text;element.className=`message ${type}`;element.classList.remove('hidden');setTimeout(()=>{element.classList.add('hidden')},5000)}
-        function handleAuthError(error,element){const messages={'auth/too-many-requests':'너무 많은 시도가 있었습니다. 나중에 다시 시도해주세요.','default':error.message};const message=messages[error.code]||messages['default'];showMessage(element,message,'error');console.error('인증 오류:',error)}
-        auth.onAuthStateChanged((user)=>{if(user){currentUser=user;isGuest=false}updateUI(user)});
-        function toggleCategory(categoryId){const category=document.getElementById(categoryId);category.style.display=category.style.display==='block'?'none':'block'}
-        function showFullScreenImage(imageUrl){document.getElementById('content').style.display='none';document.getElementById('full-screen-image-container').style.display='block';document.getElementById('full-screen-image').src=imageUrl}
-        function showPasswordInputForSSUL3(){document.getElementById('content').style.display='none';document.getElementById('ssul3-password-container').style.display='block';document.getElementById('ssul3-password-input').focus()}
-        function showSSUL6PasswordInput(){document.getElementById('content').style.display='none';document.getElementById('ssul6-password-container').style.display='block';document.getElementById('ssul6-password-input').focus()}
-        function checkSSUL3Password(){const password=document.getElementById('ssul3-password-input').value;if(password==='Dhdjeiei882ue'){document.getElementById('ssul3-password-container').style.display='none';document.getElementById('full-screen-image-container').style.display='block';document.getElementById('full-screen-image').src='https://raw.githubusercontent.com/Yousoo68/photo/main/ssul3.jpg'}else{alert('비밀번호가 틀렸습니다.');document.getElementById('ssul3-password-input').value='';document.getElementById('ssul3-password-input').focus()}}
-        function checkSSUL6Password(){const password=document.getElementById('ssul6-password-input').value;if(password==='v5W3OZn1vTSpiw1rimJ4aE1sIiQBLBRcVRNntusGpPNkydEPlA73KURVdSNCKplslRco0a8PspdvrvZy1YpZTEwSUIdCTqkaGc4qD9W298kUKeSInVbo4S3mV6UCWp9jKhU7WEO4jKrCeACy1CIlBCJMnI1GPvex7v4qpFtFOvmWLXkSyAWRihs33sLBc47EJ7Xjn2Ne'){document.getElementById('ssul6-password-container').style.display='none';document.getElementById('full-screen-image-container').style.display='block';document.getElementById('full-screen-image').src='https://raw.githubusercontent.com/Yousoo68/photo/main/ssull6.jpg'}else{alert('비밀번호가 틀렸습니다.');document.getElementById('ssul6-password-input').value='';document.getElementById('ssul6-password-input').focus()}}
-        function showYoutubePasswordInput(){document.getElementById('youtube-password-container').style.display='block';document.getElementById('youtube-password-input').focus()}
-        function checkYoutubePassword(){const youtubePassword=document.getElementById('youtube-password-input').value;if(youtubePassword==='Fe8tqkSPIj4myPL0wGHcOXt7OnSDlYPYF4PEv1lG778gYaZ3sJ'){window.location.href='https://www.youtube.com/watch?v=EgPQGvbsKy0'}else{alert('비밀번호가 틀렸습니다.');document.getElementById('youtube-password-input').value='';document.getElementById('youtube-password-input').focus()}}
+        
+        function updateUI(user){
+            if(user||currentUser){
+                authSection.style.display='none';
+                contentSection.style.display='flex';
+                userInfo.style.display='flex';
+                const email=user?.email||currentUser?.email;
+                userEmail.textContent=email;
+                updateCategoryAccess(email);
+            }else{
+                authSection.style.display='block';
+                contentSection.style.display='none';
+                userInfo.style.display='none';
+                currentUser=null;
+                isGuest=false;
+            }
+        }
+        
+        function updateCategoryAccess(email){
+            const subtitles=document.querySelectorAll('.subtitle');
+            subtitles.forEach(subtitle=>{subtitle.classList.add('disabled')});
+            
+            // 전체 영구공개 썰은 모두 접근 가능
+            document.querySelectorAll('#all-permanent .subtitle').forEach(subtitle=>{
+                subtitle.classList.remove('disabled')
+            });
+            
+            // P독자 계정인 경우
+            if(P_ACCOUNTS.includes(email)){
+                subtitles.forEach(subtitle=>{
+                    subtitle.classList.remove('disabled')
+                });
+            }
+            // A독자 계정인 경우
+            else if(A_ACCOUNTS.includes(email)){
+                document.querySelectorAll('#a-limited .subtitle').forEach(subtitle=>{
+                    subtitle.classList.remove('disabled')
+                });
+                document.querySelectorAll('#a-permanent .subtitle').forEach(subtitle=>{
+                    subtitle.classList.remove('disabled')
+                });
+                // P독자 전용 썰 토글은 보이지만 내용은 비활성화
+                document.querySelectorAll('#p-reader .subtitle').forEach(subtitle=>{
+                    subtitle.classList.add('disabled')
+                });
+            }
+            
+            // 비밀번호 찾기 버튼 표시 여부
+            if(findPassword){
+                if(P_ACCOUNTS.includes(email) || A_ACCOUNTS.includes(email)){
+                    findPassword.style.display = 'block';
+                } else {
+                    findPassword.style.display = 'none';
+                }
+            }
+        }
+        
+        function showMessage(element,text,type){
+            if(!element)return;
+            element.textContent=text;
+            element.className=`message ${type}`;
+            element.classList.remove('hidden');
+            setTimeout(()=>{
+                element.classList.add('hidden')
+            },5000)
+        }
+        
+        function handleAuthError(error,element){
+            const messages={
+                'auth/too-many-requests':'너무 많은 시도가 있었습니다. 나중에 다시 시도해주세요.',
+                'default':error.message
+            };
+            const message=messages[error.code]||messages['default'];
+            showMessage(element,message,'error');
+            console.error('인증 오류:',error)
+        }
+        
+        function toggleCategory(categoryId){
+            const category=document.getElementById(categoryId);
+            category.style.display=category.style.display==='block'?'none':'block'
+        }
+        
+        function showFullScreenImage(imageUrl){
+            document.getElementById('content').style.display='none';
+            const container = document.getElementById('full-screen-image-container');
+            container.style.display='block';
+            const image = document.getElementById('full-screen-image');
+            image.src=imageUrl;
+            
+            // 특정 이미지인 경우 하단 영역 추가
+            const bottomArea = document.getElementById('image-bottom-area');
+            if(imageUrl === 'https://i.ibb.co/KpvZFGTM/K3eu95v-MJU.jpg'){
+                bottomArea.style.display = 'block';
+                bottomArea.onclick = function() {
+                    if(P_ACCOUNTS.includes(currentUser?.email)){
+                        window.location.href='https://www.youtube.com/watch?v=EgPQGvbsKy0';
+                    }
+                };
+            } else {
+                bottomArea.style.display = 'none';
+            }
+        }
+        
+        function showPasswordInputForSSUL3(){
+            document.getElementById('content').style.display='none';
+            document.getElementById('ssul3-password-container').style.display='block';
+            document.getElementById('ssul3-password-input').focus()
+        }
+        
+        function showSSUL6PasswordInput(){
+            document.getElementById('content').style.display='none';
+            document.getElementById('ssul6-password-container').style.display='block';
+            document.getElementById('ssul6-password-input').focus()
+        }
+        
+        function checkSSUL3Password(){
+            const password=document.getElementById('ssul3-password-input').value;
+            if(password==='Dhdjeiei882ue'){
+                document.getElementById('ssul3-password-container').style.display='none';
+                document.getElementById('full-screen-image-container').style.display='block';
+                document.getElementById('full-screen-image').src='https://raw.githubusercontent.com/Yousoo68/photo/main/ssul3.jpg';
+                document.getElementById('image-bottom-area').style.display = 'none';
+            }else{
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul3-password-input').value='';
+                document.getElementById('ssul3-password-input').focus()
+            }
+        }
+        
+        function checkSSUL6Password(){
+            const password=document.getElementById('ssul6-password-input').value;
+            if(password==='v5W3OZn1vTSpiw1rimJ4aE1sIiQBLBRcVRNntusGpPNkydEPlA73KURVdSNCKplslRco0a8PspdvrvZy1YpZTEwSUIdCTqkaGc4qD9W298kUKeSInVbo4S3mV6UCWp9jKhU7WEO4jKrCeACy1CIlBCJMnI1GPvex7v4qpFtFOvmWLXkSyAWRihs33sLBc47EJ7Xjn2Ne'){
+                document.getElementById('ssul6-password-container').style.display='none';
+                document.getElementById('full-screen-image-container').style.display='block';
+                document.getElementById('full-screen-image').src='https://raw.githubusercontent.com/Yousoo68/photo/main/ssull6.jpg';
+                document.getElementById('image-bottom-area').style.display = 'none';
+            }else{
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul6-password-input').value='';
+                document.getElementById('ssul6-password-input').focus()
+            }
+        }
+        
+        function showYoutubePasswordInput(){
+            document.getElementById('youtube-password-container').style.display='block';
+            document.getElementById('youtube-password-input').focus()
+        }
+        
+        function checkYoutubePassword(){
+            const youtubePassword=document.getElementById('youtube-password-input').value;
+            if(youtubePassword==='Fe8tqkSPIj4myPL0wGHcOXt7OnSDlYPYF4PEv1lG778gYaZ3sJ'){
+                window.location.href='https://www.youtube.com/watch?v=EgPQGvbsKy0'
+            }else{
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('youtube-password-input').value='';
+                document.getElementById('youtube-password-input').focus()
+            }
+        }
+        
+        function closeFullScreenImage(){
+            document.getElementById('full-screen-image-container').style.display='none';
+            document.getElementById('content').style.display='flex';
+        }
+        
+        function closePasswordContainer(type){
+            document.getElementById(`${type}-password-container`).style.display='none';
+            document.getElementById('content').style.display='flex';
+        }
+        
+        function redirectToPasswordHelp(){
+            if(P_ACCOUNTS.includes(currentUser?.email) || A_ACCOUNTS.includes(currentUser?.email)){
+                window.location.href='https://www.youtube.com/watch?v=t5QaQyLcZlY';
+            }
+        }
+        
+        // 이벤트 리스너
+        guestLoginBtn.addEventListener('click',()=>{
+            isGuest=true;
+            currentUser={email:'guest@example.com',isGuest:true};
+            updateUI(currentUser)
+        });
+        
+        googleLoginBtn.addEventListener('click',async()=>{
+            try{
+                const provider=new firebase.auth.GoogleAuthProvider();
+                const result=await auth.signInWithPopup(provider);
+                currentUser=result.user;
+                isGuest=false;
+                updateUI(currentUser)
+            }catch(error){
+                handleAuthError(error,loginMessage)
+            }
+        });
+        
+        logoutBtn.addEventListener('click',()=>{
+            if(isGuest){
+                currentUser=null;
+                isGuest=false;
+                updateUI(null)
+            }else{
+                auth.signOut().then(()=>{
+                    currentUser=null;
+                    updateUI(null)
+                }).catch((error)=>{
+                    console.error('로그아웃 오류:',error)
+                })
+            }
+        });
+        
+        // 초기화 및 기타 설정
         document.addEventListener('contextmenu',e=>e.preventDefault());
         document.addEventListener('selectstart',e=>e.preventDefault());
+        auth.onAuthStateChanged((user)=>{
+            if(user){
+                currentUser=user;
+                isGuest=false
+            }
+            updateUI(user)
+        });
         updateUI(null);
     </script>
 </body>
