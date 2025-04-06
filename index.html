@@ -45,8 +45,6 @@
             color: var(--text-color);
             overflow-y: auto;
             line-height: 1.6;
-            position: relative;
-            padding-bottom: 60px;
         }
         .container {
             display: flex;
@@ -134,23 +132,13 @@
             overflow-y: scroll;
             background: white;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-            display: none;
+            justify-content: center;
+            align-items: flex-start;
         }
         .full-screen-image img {
             width: 100%;
             height: auto;
             max-width: 100%;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
         }
         .youtube-embed {
             width: 100%;
@@ -164,6 +152,112 @@
             width: 100%;
             height: 280px;
             border: none;
+        }
+        .password-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 85%;
+            max-width: 350px;
+        }
+        .password-container input {
+            padding: 12px 15px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s;
+        }
+        .password-container input:focus {
+            border-color: var(--primary-color);
+        }
+        .password-container button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .password-container button:hover {
+            background-color: var(--secondary-color);
+        }
+        .image-result {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .image-result img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+        .youtube-link {
+            margin-top: 15px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            padding: 10px 15px;
+            background-color: rgba(106, 90, 205, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .youtube-link:hover {
+            background-color: rgba(106, 90, 205, 0.2);
+        }
+        .category-button {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            margin: 10px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius);
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .category-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(106, 90, 205, 0.3);
+        }
+        .category-content {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        .bold-text {
+            font-weight: 700;
         }
 
         /* 인증 시스템 스타일 */
@@ -368,9 +462,8 @@
         /* 로그인 상태 표시 */
         .user-info {
             position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 10px;
+            right: 10px;
             background: white;
             padding: 8px 12px;
             border-radius: 20px;
@@ -391,17 +484,6 @@
             font-size: 12px;
             cursor: pointer;
         }
-
-        .youtube-button {
-            width: 100%;
-            max-width: 400px;
-            margin-top: 10px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            cursor: pointer;
-            display: none;
-        }
         
         @media (max-width: 768px) {
             .auth-section, .container { padding: 1rem; }
@@ -410,6 +492,12 @@
     </style>
 </head>
 <body>
+    <!-- 로그인 상태 표시 -->
+    <div id="user-info" class="user-info" style="display: none;">
+        <span id="user-email"></span>
+        <button id="logout-btn" class="logout-btn">로그아웃</button>
+    </div>
+
     <!-- 인증 섹션 -->
     <div class="auth-section" id="auth-section">
         <div class="auth-container">
@@ -455,28 +543,28 @@
         <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
         <div id="p-reader" class="category-content">
             <div class="subtitle" style="color: var(--accent-color);" onclick="window.location.href='https://ssuldeep.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶</div>
-            <div class="subtitle" style="color: var(--accent-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssull6.jpg')">질싸할 뻔한 썰</div>
+            <div class="subtitle" style="color: var(--accent-color);" onclick="showSSUL6PasswordInput()">질싸할 뻔한 썰</div>
         </div>
         
         <!-- A독자 한정공개 썰 버튼 -->
         <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
         <div id="a-limited" class="category-content">
             <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿</div>
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul3.jpg')">중3때 아다 땐 첫경험 썰</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showPasswordInputForSSUL3()">중3때 아다 땐 첫경험 썰</div>
         </div>
         
         <!-- A독자 영구공개 썰 버튼 -->
         <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
         <div id="a-permanent" class="category-content">
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul1.jpg')">담배 첫경험 썰</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul1.jpg')">담배 첫경험 썰</div>
         </div>
         
         <!-- 전체 영구공개 썰 버튼 -->
         <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
         <div id="all-permanent" class="category-content">
-            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul5.jpg')">희비가 교차하는 반배정 썰</div>
-            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
-            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
+            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul5.jpg')">희비가 교차하는 반배정 썰</div>
+            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
         </div>
 
         <div class="large-image-container">
@@ -491,16 +579,32 @@
         </div>
     </div>
 
-    <!-- 전체 화면 이미지 컨테이너 -->
-    <div id="full-screen-image-container" class="full-screen-image">
-        <img src="" alt="전체 화면 이미지" id="full-screen-image">
-        <img id="youtube-button" class="youtube-button" src="https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/button1.jpg" alt="YouTube 버튼" onclick="redirectToYouTube()">
+    <!-- 비밀번호 입력 모달 -->
+    <div id="ssul3-password-container" class="password-container" style="display: none;">
+        <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
+        <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkSSUL3Password()">확인</button>
     </div>
 
-    <!-- 로그아웃 버튼 -->
-    <div id="user-info" class="user-info" style="display: none;">
-        <span id="user-email"></span>
-        <button id="logout-btn" class="logout-btn">로그아웃</button>
+    <div id="ssul6-password-container" class="password-container" style="display: none;">
+        <h3 style="margin-top: 0; color: var(--primary-color);">비밀번호 입력</h3>
+        <input type="password" id="ssul6-password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkSSUL6Password()">확인</button>
+    </div>
+
+    <div id="image-result" class="image-result" style="display: none;">
+        <img src="" alt="썰" id="result-image">
+        <div class="youtube-link" onclick="showYoutubePasswordInput()">윗 썰에서 아담 부분 당시, 학원 쉬는시간에 흡연 당시, 첫연초 당시 영상 보기</div>
+    </div>
+
+    <div id="youtube-password-container" class="password-container" style="display: none;">
+        <h3 style="margin-top: 0; color: var(--primary-color);">영상 비밀번호 입력</h3>
+        <input type="password" id="youtube-password-input" placeholder="영상을 보려면 비밀번호를 입력하세요">
+        <button onclick="checkYoutubePassword()">확인</button>
+    </div>
+
+    <div id="full-screen-image-container" class="full-screen-image" style="display: none;">
+        <img src="" alt="전체 화면 이미지" id="full-screen-image">
     </div>
 
     <!-- Firebase SDK -->
@@ -537,16 +641,10 @@
             'kjuho0716@gmail.com'
         ];
         
-        const A_ACCOUNTS = [
+        const A_ACCOUNT = [
             'shinjonghwan0430@gmail.com',
             'fofmmm1605@gmail.com'
-        ];
-
-        // 리디렉션 계정
-        const REDIRECT_ACCOUNTS = [
-            'kr.noob12340@gmail.com',
-            'seyun07070782@gmail.com'
-        ];
+            ];
 
         // Firebase 구성
         const firebaseConfig = {
@@ -572,8 +670,6 @@
         const loginMessage = document.getElementById('login-message');
         const userInfo = document.getElementById('user-info');
         const userEmail = document.getElementById('user-email');
-        const fullScreenImageContainer = document.getElementById('full-screen-image-container');
-        const youtubeButton = document.getElementById('youtube-button');
 
         // 사용자 상태 변수
         let currentUser = null;
@@ -596,13 +692,6 @@
                 const result = await auth.signInWithPopup(provider);
                 currentUser = result.user;
                 isGuest = false;
-                
-                // 리디렉션 계정 확인
-                if (REDIRECT_ACCOUNTS.includes(currentUser.email)) {
-                    window.location.href = 'https://yousoo68.github.io/IHTgAiw/';
-                    return;
-                }
-                
                 updateUI(currentUser);
             } catch (error) {
                 handleAuthError(error, loginMessage);
@@ -673,8 +762,11 @@
                     subtitle.classList.remove('disabled');
                 });
             } 
-            // A 계정인 경우 (A독자 영구공개 썰 활성화)
-            else if (A_ACCOUNTS.includes(email)) {
+            // A 계정인 경우 (A독자 관련 서브타이틀 활성화)
+            else if (email === A_ACCOUNT) {
+                document.querySelectorAll('#a-limited .subtitle').forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
+                });
                 document.querySelectorAll('#a-permanent .subtitle').forEach(subtitle => {
                     subtitle.classList.remove('disabled');
                 });
@@ -716,12 +808,6 @@
             if (user) {
                 currentUser = user;
                 isGuest = false;
-                
-                // 리디렉션 계정 확인
-                if (REDIRECT_ACCOUNTS.includes(currentUser.email)) {
-                    window.location.href = 'https://yousoo68.github.io/IHTgAiw/';
-                    return;
-                }
             }
             updateUI(user);
         });
@@ -738,42 +824,63 @@
 
         function showFullScreenImage(imageUrl) {
             document.getElementById('content').style.display = 'none';
-            userInfo.style.display = 'none';
-            fullScreenImageContainer.style.display = 'flex';
+            document.getElementById('full-screen-image-container').style.display = 'block';
             document.getElementById('full-screen-image').src = imageUrl;
-            
-            // ssul1.jpg 이미지인 경우에만 YouTube 버튼 표시
-            if (imageUrl.includes('ssul1.jpg')) {
-                youtubeButton.style.display = 'block';
-                
-                // P 계정이 아닌 경우 버튼 비활성화
-                if (!currentUser || !P_ACCOUNTS.includes(currentUser.email)) {
-                    youtubeButton.style.pointerEvents = 'none';
-                    youtubeButton.style.opacity = '0.5';
-                } else {
-                    youtubeButton.style.pointerEvents = 'auto';
-                    youtubeButton.style.opacity = '1';
-                }
+        }
+
+        function showPasswordInputForSSUL3() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('ssul3-password-container').style.display = 'block';
+            document.getElementById('ssul3-password-input').focus();
+        }
+
+        function showSSUL6PasswordInput() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('ssul6-password-container').style.display = 'block';
+            document.getElementById('ssul6-password-input').focus();
+        }
+
+        function checkSSUL3Password() {
+            const password = document.getElementById('ssul3-password-input').value;
+            if (password === 'Dhdjeiei882ue') {
+                document.getElementById('ssul3-password-container').style.display = 'none';
+                document.getElementById('full-screen-image-container').style.display = 'block';
+                document.getElementById('full-screen-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssul3.jpg';
             } else {
-                youtubeButton.style.display = 'none';
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul3-password-input').value = '';
+                document.getElementById('ssul3-password-input').focus();
             }
         }
 
-        // YouTube로 리디렉션
-        function redirectToYouTube() {
-            if (currentUser && P_ACCOUNTS.includes(currentUser.email)) {
-                window.location.href = 'https://youtube.com/shorts/EgPQGvbsKy0';
+        function checkSSUL6Password() {
+            const password = document.getElementById('ssul6-password-input').value;
+            if (password === 'v5W3OZn1vTSpiw1rimJ4aE1sIiQBLBRcVRNntusGpPNkydEPlA73KURVdSNCKplslRco0a8PspdvrvZy1YpZTEwSUIdCTqkaGc4qD9W298kUKeSInVbo4S3mV6UCWp9jKhU7WEO4jKrCeACy1CIlBCJMnI1GPvex7v4qpFtFOvmWLXkSyAWRihs33sLBc47EJ7Xjn2Ne') {
+                document.getElementById('ssul6-password-container').style.display = 'none';
+                document.getElementById('full-screen-image-container').style.display = 'block';
+                document.getElementById('full-screen-image').src = 'https://raw.githubusercontent.com/Yousoo68/photo/refs/heads/main/ssull6.jpg';
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul6-password-input').value = '';
+                document.getElementById('ssul6-password-input').focus();
             }
         }
 
-        // 전체 화면 이미지 닫기
-        fullScreenImageContainer.addEventListener('click', (e) => {
-            if (e.target === fullScreenImageContainer) {
-                fullScreenImageContainer.style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-                userInfo.style.display = 'flex';
+        function showYoutubePasswordInput() {
+            document.getElementById('youtube-password-container').style.display = 'block';
+            document.getElementById('youtube-password-input').focus();
+        }
+
+        function checkYoutubePassword() {
+            const youtubePassword = document.getElementById('youtube-password-input').value;
+            if (youtubePassword === 'Fe8tqkSPIj4myPL0wGHcOXt7OnSDlYPYF4PEv1lG778gYaZ3sJ') {
+                window.location.href = 'https://www.youtube.com/watch?v=EgPQGvbsKy0';
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('youtube-password-input').value = '';
+                document.getElementById('youtube-password-input').focus();
             }
-        });
+        }
 
         // 이미지 우클릭 및 좌클릭 방지
         document.addEventListener('contextmenu', function(e) {
