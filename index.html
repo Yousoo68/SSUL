@@ -2,10 +2,25 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>섹시유수의 비밀 썰SSUL</title>
+
+    <!-- 홈 화면 아이콘 설정 -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg">
+    <link rel="icon" type="image/png" sizes="512x512" href="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg">
+    <link rel="manifest" href="manifest.json">
+
     <style>
         :root {
+            --primary-color: #6a5acd;
+            --secondary-color: #9370db;
+            --accent-color: #ff69b4;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
             --primary: #4361ee;
             --secondary: #3f37c9;
             --accent: #4895ef;
@@ -16,41 +31,154 @@
             --radius: 8px;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
-            --primary-color: #6a5acd;
-            --secondary-color: #9370db;
-            --accent-color: #ff69b4;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --border-radius: 12px;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
             margin: 0;
             background-color: var(--light-bg);
             color: var(--text-color);
+            overflow-y: auto;
             line-height: 1.6;
-            overflow-x: hidden;
-            touch-action: manipulation;
+            position: relative;
+            padding-bottom: 60px;
         }
-
-        /* 로그인 패널 스타일 */
-        .auth-section {
+        .container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .image-container {
+            width: 180px;
+            height: 180px;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            border: 3px solid white;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            background-color: white;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            text-align: left;
+        }
+        .subtitle:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        .subtitle.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .disclaimer {
+            font-size: 12px;
+            color: #777;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            line-height: 1.5;
+        }
+        .large-image-container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 25px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .large-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .full-screen-image {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
             padding: 20px;
+            box-sizing: border-box;
+            display: none;
+        }
+        .full-screen-image img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+        .youtube-embed {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 25px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .youtube-embed iframe {
+            width: 100%;
+            height: 280px;
+            border: none;
         }
 
+        /* 인증 시스템 스타일 */
+        .auth-section {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            display: none;
+        }
+        
         .auth-container {
             background: white;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             overflow: hidden;
-            width: 90%;
-            max-width: 500px;
         }
         
         .tabs {
@@ -165,7 +293,7 @@
         .current-user-info {
             background: #f8f9fa;
             padding: 1rem;
-            border-radius: var(--radius);
+            border-radius: var(--border-radius);
             margin-bottom: 1.5rem;
             text-align: center;
         }
@@ -208,6 +336,36 @@
             margin-right: 8px;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+        }
+        
+        .modal-title {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* 로그인 상태 표시 */
         .user-info {
             position: fixed;
             bottom: 10px;
@@ -234,191 +392,26 @@
             cursor: pointer;
         }
 
-        @media (max-width: 768px) {
-            .auth-container { padding: 1rem; }
-            .tab-content { padding: 1.5rem; }
-        }
-
-        /* 콘텐츠 섹션 스타일 */
-        .content-section {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            padding: 20px;
-            width: 100%;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .image-container {
-            width: 180px;
-            height: 180px;
-            background-color: white;
-            border-radius: 50%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            box-shadow: var(--card-shadow);
-            border: 3px solid white;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: var(--primary-color);
-            cursor: pointer;
-            margin-bottom: 12px;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            transition: all 0.3s ease;
-            background-color: white;
-            box-shadow: var(--card-shadow);
-            width: 100%;
-            text-align: left;
-        }
-
-        .subtitle:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
-        }
-
-        .subtitle.disabled {
-            color: #999;
-            cursor: not-allowed;
-            background-color: #f5f5f5;
-        }
-
-        .subtitle.disabled:hover {
-            background-color: #f5f5f5;
-            transform: none;
-        }
-
-        .disclaimer {
-            font-size: 12px;
-            color: #777;
-            margin-top: 25px;
-            padding: 15px;
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
-            line-height: 1.5;
-        }
-
-        .large-image-container {
+        .youtube-button {
             width: 100%;
             max-width: 400px;
-            margin-bottom: 25px;
+            margin-top: 10px;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--card-shadow);
-        }
-
-        .large-image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .youtube-embed {
-            width: 100%;
-            max-width: 500px;
-            margin-top: 25px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-        }
-
-        .youtube-embed iframe {
-            width: 100%;
-            height: 280px;
-            border: none;
-        }
-
-        .category-button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            margin-bottom: 10px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .category-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .category-content {
-            width: 100%;
-            display: none;
-            margin-bottom: 20px;
-        }
-
-        .bold-text {
-            font-weight: bold;
-        }
-
-        /* 이미지 뷰어 스타일 - 전체 화면 꽉 차게 수정 */
-        .image-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: black;
-            z-index: 1000;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
             display: none;
         }
-
-        .image-viewer img {
-            width: 100vw;
-            height: auto;
-            display: block;
-            touch-action: pan-y;
-        }
-
-        /* 이미지가 화면 높이보다 작을 경우 중앙 정렬 */
-        .image-container-full {
-            width: 100vw;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        
+        @media (max-width: 768px) {
+            .auth-section, .container { padding: 1rem; }
+            .tab-content { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
     <!-- 인증 섹션 -->
-    <div class="auth-section">
+    <div class="auth-section" id="auth-section">
         <div class="auth-container">
             <div class="tabs">
                 <div class="tab active" data-tab="login">로그인</div>
@@ -452,48 +445,56 @@
     </div>
 
     <!-- 콘텐츠 섹션 -->
-    <div id="content-section" class="content-section">
-        <div class="container">
-            <div class="image-container">
-                <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="프로필 이미지">
-            </div>
-            <div class="title">섹시유수의 비밀 썰SSUL</div>
-            
-            <!-- 카테고리 버튼들 -->
-            <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
-            <div id="p-reader" class="category-content">
-                <div class="subtitle" style="color: var(--accent-color);" onclick="showImage('https://i.ibb.co/TMRn3SbR/Bpqtm4xnra.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶(매운맛)</div>
-                <div class="subtitle" style="color: var(--accent-color);" onclick="showImage('https://i.ibb.co/mrNnKVmF/8h-MJu-Bs-B6-K.jpg')">질싸할 뻔한 썰</div>
-            </div>
-            
-            <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
-            <div id="a-limited" class="category-content">
-                <div class="subtitle" onclick="showImage('https://i.ibb.co/cKg3Vrdt/DPQHh-Hj-Ts-Q.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿(순한맛)</div>
-                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/6JNbncnG/J16-JKu-FTL9.jpg')">중3때 아다 땐 첫경험 썰</div>
-            </div>
-            
-            <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
-            <div id="a-permanent" class="category-content">
-                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/KpvZFGTM/K3eu95v-MJU.jpg', true)" id="tobacco-story">담배 첫경험 썰</div>
-            </div>
-            
-            <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
-            <div id="all-permanent" class="category-content">
-                <div class="subtitle" onclick="showImage('https://i.ibb.co/Z6cdJbpM/cnf-KMGI1-FR.jpg')" id="assignment-story">희비가 교차하는 반배정 썰</div>
-                <div class="subtitle" onclick="showImage('https://i.ibb.co/9kMcQVDK/s-R3u-U3ga-Qu.jpg')" id="gym-story">우왕좌왕 헬정자의 헬스 썰</div>
-                <div class="subtitle" style="color: var(--primary-color);" onclick="showImage('https://i.ibb.co/PsNrQ51d/nw-Wt5-Qba-Ho.jpg')" id="god-story">신의 아들임과 동시에 신의 조카가 된 썰</div>
-            </div>
-
-            <div class="large-image-container">
-                <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="피라미드 이미지">
-            </div>
-            <div class="disclaimer">
-                섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다.
-            </div>
-            <div class="youtube-embed">
-                <iframe src="https://www.youtube.com/embed/z6h3d-gwwvQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+    <div id="content" class="container" style="display: none;">
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/SSULicon.jpg" alt="프로필 이미지">
         </div>
+        <div class="title">섹시유수의 비밀 썰SSUL</div>
+        
+        <!-- P독자 전용 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
+        <div id="p-reader" class="category-content">
+            <div class="subtitle" style="color: var(--accent-color);" onclick="window.location.href='https://ssuldeep.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶</div>
+            <div class="subtitle" style="color: var(--accent-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssull6.jpg')">질싸할 뻔한 썰</div>
+        </div>
+        
+        <!-- A독자 한정공개 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
+        <div id="a-limited" class="category-content">
+            <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul3.jpg')">중3때 아다 땐 첫경험 썰</div>
+        </div>
+        
+        <!-- A독자 영구공개 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
+        <div id="a-permanent" class="category-content">
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul1.jpg')">담배 첫경험 썰</div>
+        </div>
+        
+        <!-- 전체 영구공개 썰 버튼 -->
+        <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
+        <div id="all-permanent" class="category-content">
+            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul5.jpg')">희비가 교차하는 반배정 썰</div>
+            <div class="subtitle" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/ssul4.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
+            <div class="subtitle" style="color: var(--primary-color);" onclick="showFullScreenImage('https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/SSUL2.jpg')">군대 빼기 위해 태어난 것 같은 썰</div>
+        </div>
+
+        <div class="large-image-container">
+            <img src="https://raw.githubusercontent.com/Yousoo68/SSUL/refs/heads/main/Pyramid.jpg" alt="피라미드 이미지">
+        </div>
+        <div class="disclaimer">섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다.<br><br>
+            가끔 수위가 매우 센 썰은 B독자에게는 비공개, A독자에게는 한정공개, P독자에게는 영구공개 합니다.<br>
+            수위가 적당한 썰은 B독자에게는 비공개, A독자에게는 영구공개, P독자에게는 영구공개 합니다.<br>
+            수위가 약한 썰은 B독자, A독자, P독자 모두에게 영구공개 합니다.</div>
+        <div class="youtube-embed">
+            <iframe src="https://www.youtube.com/embed/z6h3d-gwwvQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- 전체 화면 이미지 컨테이너 -->
+    <div id="full-screen-image-container" class="full-screen-image">
+        <img src="" alt="전체 화면 이미지" id="full-screen-image">
+        <img id="youtube-button" class="youtube-button" src="https://raw.githubusercontent.com/Yousoo68/yxsNCGqsWUaUcFdtGHpNaFdVqDhmSKtqqexWcjygJrtEFvytFz/refs/heads/main/button1.jpg" alt="YouTube 버튼" onclick="redirectToYouTube()">
     </div>
 
     <!-- 로그아웃 버튼 -->
@@ -502,24 +503,32 @@
         <button id="logout-btn" class="logout-btn">로그아웃</button>
     </div>
 
-    <!-- 이미지 뷰어 (전체 화면 꽉 차게 표시) -->
-    <div id="imageViewer" class="image-viewer" onclick="closeImage()">
-        <div class="image-container-full">
-            <img id="viewedImage" src="" alt="확대 이미지">
-        </div>
-    </div>
-
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
     <script>
-        // 계정 분류 정의
-        const P_READER = [
+        // 사이트 경유 경로 체크
+        if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/") {
+            window.location.href = "https://yousoo68.github.io/fjYxbSA/";
+        }
+
+        // 도메인 확인
+        if (window.location.hostname !== "yousoo68.github.io") {
+            // 경고 메시지 표시 후 리다이렉트
+            document.body.innerHTML = "<h1 style='text-align: center; margin-top: 50px; color: var(--primary-color);'>이 페이지는 https://yousoo68.github.io/fjYxbSA/ 링크를 통해서만 접속할 수 있습니다.</h1>";
+            setTimeout(function() {
+                window.location.href = "https://yousoo68.github.io/fjYxbSA/"; // 리다이렉트 URL
+            }, 5000); // 5초 후 리다이렉트
+        }
+
+        // 특수 계정 정의
+        const P_ACCOUNTS = [
             'fjrtufl9909@gmail.com',
             'minjune003956@gmail.com',
             'sexyyousoo68@gmail.com',
             'seojunna73@gmail.com',
+            'seyun07070782@gmail.com',
             'chaejun0708@gmail.com',
             'sonhyeonmins@gmail.com',
             'rang330579@gmail.com',
@@ -528,18 +537,16 @@
             'kjuho0716@gmail.com'
         ];
         
-        const A_READER = [
+        const A_ACCOUNTS = [
             'shinjonghwan0430@gmail.com',
-            'fofmmm1605@gmail.com',
-            'shinyousoo68@gmail.com'
+            'fofmmm1605@gmail.com'
         ];
 
-        const B_READER = [
-            'seubuntb@gmail.com'
+        // 리디렉션 계정
+        const REDIRECT_ACCOUNTS = [
+            'kr.noob12340@gmail.com',
+            'seyun07070782@gmail.com'
         ];
-
-        // 리디렉션 계정 (위에 정의된 계정 외 모든 계정)
-        const REDIRECT_URL = 'https://yousoo68.github.io/fjYxbSA/';
 
         // Firebase 구성
         const firebaseConfig = {
@@ -557,19 +564,20 @@
         const auth = firebase.auth();
 
         // DOM 요소
-        const authSection = document.querySelector('.auth-section');
-        const contentSection = document.getElementById('content-section');
+        const authSection = document.getElementById('auth-section');
+        const contentSection = document.getElementById('content');
         const logoutBtn = document.getElementById('logout-btn');
         const guestLoginBtn = document.getElementById('guest-login-btn');
         const googleLoginBtn = document.getElementById('google-login-btn');
         const loginMessage = document.getElementById('login-message');
         const userInfo = document.getElementById('user-info');
         const userEmail = document.getElementById('user-email');
+        const fullScreenImageContainer = document.getElementById('full-screen-image-container');
+        const youtubeButton = document.getElementById('youtube-button');
 
         // 사용자 상태 변수
         let currentUser = null;
         let isGuest = false;
-        let userRole = null; // 'P_READER', 'A_READER', 'B_READER' 또는 null
 
         // Guest 로그인 핸들러
         guestLoginBtn.addEventListener('click', () => {
@@ -578,7 +586,6 @@
                 email: 'guest@example.com',
                 isGuest: true
             };
-            userRole = null;
             updateUI(currentUser);
         });
 
@@ -590,23 +597,15 @@
                 currentUser = result.user;
                 isGuest = false;
                 
-                // 계정 분류 확인
-                if (P_READER.includes(currentUser.email)) {
-                    userRole = 'P_READER';
-                } else if (A_READER.includes(currentUser.email)) {
-                    userRole = 'A_READER';
-                } else if (B_READER.includes(currentUser.email)) {
-                    userRole = 'B_READER';
-                } else {
-                    // 정의된 계정이 아닌 경우 리디렉션
-                    window.location.href = REDIRECT_URL;
+                // 리디렉션 계정 확인
+                if (REDIRECT_ACCOUNTS.includes(currentUser.email)) {
+                    window.location.href = 'https://yousoo68.github.io/IHTgAiw/';
                     return;
                 }
                 
                 updateUI(currentUser);
-                setupContentAccess();
             } catch (error) {
-                console.error('Google 로그인 오류:', error);
+                handleAuthError(error, loginMessage);
             }
         });
 
@@ -616,79 +615,17 @@
                 // Guest 로그아웃
                 currentUser = null;
                 isGuest = false;
-                userRole = null;
                 updateUI(null);
             } else {
                 // Google 계정 로그아웃
                 auth.signOut().then(() => {
                     currentUser = null;
-                    userRole = null;
                     updateUI(null);
                 }).catch((error) => {
                     console.error('로그아웃 오류:', error);
                 });
             }
         });
-
-        // 콘텐츠 접근 설정 함수
-        function setupContentAccess() {
-            // 모든 카테고리 버튼 활성화
-            const categoryButtons = document.querySelectorAll('.category-button');
-            categoryButtons.forEach(button => {
-                button.style.pointerEvents = 'auto';
-                button.style.opacity = '1';
-            });
-
-            // 모든 카테고리 콘텐츠 펼치기
-            const categoryContents = document.querySelectorAll('.category-content');
-            categoryContents.forEach(content => {
-                content.style.display = 'block';
-            });
-
-            // P_READER: 모든 콘텐츠 활성화
-            if (userRole === 'P_READER') {
-                const allSubtitles = document.querySelectorAll('.subtitle');
-                allSubtitles.forEach(subtitle => {
-                    subtitle.classList.remove('disabled');
-                });
-                return;
-            }
-
-            // A_READER: 특정 콘텐츠만 활성화
-            if (userRole === 'A_READER') {
-                const subtitles = document.querySelectorAll('.subtitle');
-                subtitles.forEach(subtitle => {
-                    // '담배 첫경험 썰', '희비가 교차하는 반배정 썰', '우왕좌왕 헬정자의 헬스 썰', '신의 아들임과 동시에 신의 조카가 된 썰'만 활성화
-                    const allowedIds = ['tobacco-story', 'assignment-story', 'gym-story', 'god-story'];
-                    if (!allowedIds.includes(subtitle.id)) {
-                        subtitle.classList.add('disabled');
-                        subtitle.onclick = null;
-                    }
-                });
-                return;
-            }
-
-            // B_READER: 특정 콘텐츠만 활성화
-            if (userRole === 'B_READER') {
-                const subtitles = document.querySelectorAll('.subtitle');
-                subtitles.forEach(subtitle => {
-                    // '희비가 교차하는 반배정 썰', '우왕좌왕 헬정자의 헬스 썰', '신의 아들임과 동시에 신의 조카가 된 썰'만 활성화
-                    const allowedIds = ['assignment-story', 'gym-story', 'god-story'];
-                    if (!allowedIds.includes(subtitle.id)) {
-                        subtitle.classList.add('disabled');
-                        subtitle.onclick = null;
-                    }
-                });
-                return;
-            }
-
-            // Guest 또는 기타: 모든 콘텐츠 비활성화
-            const subtitles = document.querySelectorAll('.subtitle');
-            subtitles.forEach(subtitle => {
-                subtitle.classList.add('disabled');
-                subtitle.onclick = null;
-            });
-        }
 
         // UI 업데이트 함수
         function updateUI(user) {
@@ -700,17 +637,78 @@
                 
                 const email = user?.email || currentUser?.email;
                 userEmail.textContent = email;
+                
+                // 권한에 따라 카테고리 활성화/비활성화 처리
+                updateCategoryAccess(email);
             } else {
                 // 로그아웃 상태
-                authSection.style.display = 'flex';
+                authSection.style.display = 'block';
                 contentSection.style.display = 'none';
                 userInfo.style.display = 'none';
                 
                 // 변수 초기화
                 currentUser = null;
                 isGuest = false;
-                userRole = null;
             }
+        }
+
+        // 권한에 따라 카테고리 활성화/비활성화 처리
+        function updateCategoryAccess(email) {
+            // 모든 서브타이틀 요소 가져오기
+            const subtitles = document.querySelectorAll('.subtitle');
+            
+            // 모든 서브타이틀 비활성화
+            subtitles.forEach(subtitle => {
+                subtitle.classList.add('disabled');
+            });
+            
+            // 전체 영구공개 썰은 항상 활성화
+            document.querySelectorAll('#all-permanent .subtitle').forEach(subtitle => {
+                subtitle.classList.remove('disabled');
+            });
+            
+            // P 계정인 경우 (모든 서브타이틀 활성화)
+            if (P_ACCOUNTS.includes(email)) {
+                subtitles.forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
+                });
+            } 
+            // A 계정인 경우 (A독자 영구공개 썰 활성화)
+            else if (A_ACCOUNTS.includes(email)) {
+                document.querySelectorAll('#a-permanent .subtitle').forEach(subtitle => {
+                    subtitle.classList.remove('disabled');
+                });
+            }
+            // Guest 또는 그 외 계정은 전체 영구공개 썰만 활성화 (이미 위에서 처리됨)
+        }
+
+        // 공통 함수들
+        function showMessage(element, text, type) {
+            if (!element) return;
+            
+            element.textContent = text;
+            element.className = `message ${type}`;
+            element.classList.remove('hidden');
+            
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 5000);
+        }
+
+        function handleAuthError(error, element) {
+            const messages = {
+                'auth/email-already-in-use': '이미 사용 중인 아이디입니다.',
+                'auth/user-not-found': '존재하지 않는 아이디입니다.',
+                'auth/wrong-password': '비밀번호가 일치하지 않습니다.',
+                'auth/invalid-email': '유효하지 않은 아이디 형식입니다.',
+                'auth/weak-password': '비밀번호는 8자 이상이어야 합니다.',
+                'auth/too-many-requests': '너무 많은 시도가 있었습니다. 나중에 다시 시도해주세요.',
+                'default': error.message
+            };
+            
+            const message = messages[error.code] || messages['default'];
+            showMessage(element, message, 'error');
+            console.error('인증 오류:', error);
         }
 
         // 인증 상태 리스너
@@ -719,31 +717,16 @@
                 currentUser = user;
                 isGuest = false;
                 
-                // 계정 분류 확인
-                if (P_READER.includes(currentUser.email)) {
-                    userRole = 'P_READER';
-                } else if (A_READER.includes(currentUser.email)) {
-                    userRole = 'A_READER';
-                } else if (B_READER.includes(currentUser.email)) {
-                    userRole = 'B_READER';
-                } else {
-                    // 정의된 계정이 아닌 경우 리디렉션
-                    window.location.href = REDIRECT_URL;
+                // 리디렉션 계정 확인
+                if (REDIRECT_ACCOUNTS.includes(currentUser.email)) {
+                    window.location.href = 'https://yousoo68.github.io/IHTgAiw/';
                     return;
                 }
-                
-                updateUI(user);
-                setupContentAccess();
-            } else {
-                updateUI(null);
             }
+            updateUI(user);
         });
 
-        // 초기 UI 설정
-        updateUI(null);
-
-        // 콘텐츠 관련 함수들
-        // 카테고리 토글 기능
+        // 기존 기능들
         function toggleCategory(categoryId) {
             const category = document.getElementById(categoryId);
             if (category.style.display === 'block') {
@@ -753,54 +736,55 @@
             }
         }
 
-        // 이미지 뷰어 표시 (전체 화면 꽉 차게)
-        function showImage(imageUrl, hasRedirect = false) {
-            const viewer = document.getElementById('imageViewer');
-            const img = document.getElementById('viewedImage');
+        function showFullScreenImage(imageUrl) {
+            document.getElementById('content').style.display = 'none';
+            userInfo.style.display = 'none';
+            fullScreenImageContainer.style.display = 'flex';
+            document.getElementById('full-screen-image').src = imageUrl;
             
-            img.src = imageUrl;
-            viewer.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            
-            // 이미지 로드 후 크기 조정
-            img.onload = function() {
-                if (img.naturalHeight > window.innerHeight) {
-                    img.style.width = '100vw';
-                    img.style.height = 'auto';
+            // ssul1.jpg 이미지인 경우에만 YouTube 버튼 표시
+            if (imageUrl.includes('ssul1.jpg')) {
+                youtubeButton.style.display = 'block';
+                
+                // P 계정이 아닌 경우 버튼 비활성화
+                if (!currentUser || !P_ACCOUNTS.includes(currentUser.email)) {
+                    youtubeButton.style.pointerEvents = 'none';
+                    youtubeButton.style.opacity = '0.5';
                 } else {
-                    // 이미지가 화면 높이보다 작으면 세로 중앙 정렬
-                    img.style.width = 'auto';
-                    img.style.height = '100vh';
+                    youtubeButton.style.pointerEvents = 'auto';
+                    youtubeButton.style.opacity = '1';
                 }
-            };
-
-            // P_READER만 담배 첫경험 썰 하단 클릭 리디렉션 활성화
-            if (hasRedirect && userRole === 'P_READER') {
-                img.onclick = function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const y = e.clientY - rect.top;
-                    
-                    // 이미지 하단 10% 영역 클릭 시 리디렉션
-                    if (y > rect.height * 0.9) {
-                        window.location.href = 'https://youtube.com/shorts/EgPQGvbsKy0';
-                        return false; // 기본 동작 방지
-                    }
-                };
             } else {
-                img.onclick = null;
+                youtubeButton.style.display = 'none';
             }
         }
 
-        // 이미지 뷰어 닫기 (화면 아무 곳이나 터치)
-        function closeImage() {
-            document.getElementById('imageViewer').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        // YouTube로 리디렉션
+        function redirectToYouTube() {
+            if (currentUser && P_ACCOUNTS.includes(currentUser.email)) {
+                window.location.href = 'https://youtube.com/shorts/EgPQGvbsKy0';
+            }
         }
 
-        // 이미지 우클릭 방지
+        // 전체 화면 이미지 닫기
+        fullScreenImageContainer.addEventListener('click', (e) => {
+            if (e.target === fullScreenImageContainer) {
+                fullScreenImageContainer.style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+                userInfo.style.display = 'flex';
+            }
+        });
+
+        // 이미지 우클릭 및 좌클릭 방지
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // 초기 UI 설정
+        updateUI(null);
     </script>
 </body>
 </html>
