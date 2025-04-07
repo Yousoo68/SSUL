@@ -4,334 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>섹시유수의 비밀 썰SSUL</title>
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/Yousoo68/SSUL/main/SSULicon.jpg">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/Yousoo68/SSUL/main/SSULicon.jpg">
-    <link rel="manifest" href="manifest.json">
     <style>
         :root{--p:#6a5acd;--s:#9370db;--a:#ff69b4;--t:#333;--l:#f8f9fa;--sh:0 4px 12px rgba(0,0,0,0.1);--r:12px}
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;background:var(--l);color:var(--t);line-height:1.6}
+        body{font-family:'Segoe UI',Tahoma,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;background:var(--l);color:var(--t);line-height:1.6}
         .container{display:flex;flex-direction:column;align-items:center;width:90%;max-width:500px;text-align:center;margin:30px 0}
-        .image-container{width:180px;height:180px;background:#fff;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:25px;box-shadow:var(--sh);border:3px solid #fff}
+        .image-container{width:180px;height:180px;border-radius:50%;overflow:hidden;margin-bottom:25px;box-shadow:var(--sh);border:3px solid #fff}
         .image-container img{width:100%;height:100%;object-fit:cover}
-        .title{font-size:28px;font-weight:700;color:var(--p);margin-bottom:25px;letter-spacing:-0.5px}
-        .subtitle{font-size:16px;color:var(--p);cursor:pointer;margin-bottom:12px;padding:10px 15px;border-radius:var(--r);transition:all 0.3s ease;background:#fff;box-shadow:var(--sh);width:100%;text-align:left}
+        .title{font-size:28px;font-weight:700;color:var(--p);margin-bottom:25px}
+        .subtitle{font-size:16px;cursor:pointer;margin-bottom:12px;padding:10px 15px;border-radius:var(--r);transition:all 0.3s;background:#fff;box-shadow:var(--sh);width:100%;text-align:left}
         .subtitle:hover{background:#f0f0f0;transform:translateY(-2px)}
-        .subtitle.disabled{cursor:not-allowed;opacity:0.5;pointer-events:none}
-        .disclaimer{font-size:12px;color:#777;margin-top:25px;padding:15px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);line-height:1.5}
-        .large-image-container{width:100%;max-width:400px;margin-bottom:25px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-        .large-image-container img{width:100%;height:auto;display:block;position:relative}
-        .full-screen-image{width:100%;height:100vh;overflow-y:scroll;background:#fff;display:flex;justify-content:center;align-items:flex-start;position:relative}
-        .full-screen-image img{width:100%;height:auto;max-width:100%}
-        .youtube-embed{width:100%;max-width:500px;margin-top:25px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-        .youtube-embed iframe{width:100%;height:280px;border:none}
-        .password-container{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:25px;border-radius:var(--r);box-shadow:0 10px 25px rgba(0,0,0,0.2);z-index:1000;width:85%;max-width:350px}
-        .password-container input{padding:12px 15px;font-size:16px;margin-bottom:15px;width:100%;border:1px solid #ddd;border-radius:8px;outline:none;transition:border 0.3s}
-        .password-container input:focus{border-color:var(--p)}
-        .password-container button{padding:12px 20px;font-size:16px;cursor:pointer;width:100%;background:var(--p);color:#fff;border:none;border-radius:8px;font-weight:600;transition:background 0.3s}
-        .password-container button:hover{background:var(--s)}
-        .image-result{width:100%;height:100vh;overflow-y:scroll;background:#fff;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;padding:20px;box-sizing:border-box}
-        .image-result img{width:100%;height:auto;max-width:100%;border-radius:var(--r);margin-bottom:20px}
-        .youtube-link{margin-top:15px;color:var(--p);cursor:pointer;font-weight:600;padding:10px 15px;background:rgba(106,90,205,0.1);border-radius:8px;transition:all 0.3s}
-        .youtube-link:hover{background:rgba(106,90,205,0.2)}
-        .category-button{font-size:18px;font-weight:700;color:#fff;cursor:pointer;margin:10px 0;padding:15px;background:linear-gradient(135deg,var(--p),var(--s));border-radius:var(--r);width:100%;text-align:center;box-shadow:var(--sh);transition:all 0.3s ease;border:none}
+        .subtitle.disabled{opacity:0.5;pointer-events:none}
+        .category-button{font-size:18px;font-weight:700;color:#fff;cursor:pointer;margin:10px 0;padding:15px;background:linear-gradient(135deg,var(--p),var(--s));border-radius:var(--r);width:100%;box-shadow:var(--sh);transition:all 0.3s}
         .category-button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(106,90,205,0.3)}
         .category-content{display:none;width:100%;padding:15px;background:#fff;border-radius:var(--r);margin-bottom:15px;box-shadow:var(--sh)}
         .bold-text{font-weight:700}
+        .password-container,.full-screen-image{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:1000;padding:20px;overflow:auto;text-align:center}
+        .password-container{top:50%;left:50%;transform:translate(-50%,-50%);width:85%;max-width:350px;height:auto;border-radius:var(--r);box-shadow:0 10px 25px rgba(0,0,0,0.2)}
+        .password-container input{padding:12px 15px;width:100%;margin-bottom:15px;border:1px solid #ddd;border-radius:8px}
+        .password-container button{padding:12px 20px;width:100%;background:var(--p);color:#fff;border:none;border-radius:8px;font-weight:600}
+        .close-btn{position:fixed;top:20px;right:20px;background:#888;color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:20px;cursor:pointer}
         .auth-section{width:100%;max-width:500px;padding:2rem;margin-top:50px}
-        .auth-container{background:#fff;border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,0.15);overflow:hidden}
-        .tabs{display:flex;border-bottom:1px solid #e0e0e0}
-        .tab{flex:1;padding:1rem;text-align:center;cursor:pointer;transition:all 0.3s ease;font-weight:600;color:#666;background:#f1f1f1}
-        .tab.active{background:#fff;color:var(--p);border-bottom:3px solid var(--p)}
-        .tab-content{padding:2rem}
-        .tab-pane{display:none;animation:fadeIn 0.5s ease}
-        .tab-pane.active{display:block}
-        .form-group{margin-bottom:1.5rem}
-        .form-group label{display:block;margin-bottom:0.5rem;font-weight:500}
-        .form-control{width:100%;padding:0.8rem 1rem;border:1px solid #ddd;border-radius:var(--r);font-size:1rem;transition:all 0.3s ease}
-        .form-control:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px rgba(72,149,239,0.2)}
-        .btn{background:var(--p);color:#fff;border:none;padding:12px;border-radius:var(--r);font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s ease;width:100%;margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:10px}
-        .btn-guest{background:#6c757d}
-        .btn-guest:hover{background:#5a6268}
-        .btn-google{background:#4285F4}
-        .message{padding:0.8rem 1rem;border-radius:var(--r);margin-bottom:1.5rem;font-size:0.9rem}
-        .success{background:rgba(75,181,67,0.1);color:#4bb543;border:1px solid rgba(75,181,67,0.3)}
-        .error{background:rgba(255,51,51,0.1);color:#ff3333;border:1px solid rgba(255,51,51,0.3)}
-        .hidden{display:none!important}
-        .user-info{position:fixed;bottom:10px;right:10px;background:#fff;padding:8px 12px;border-radius:20px;box-shadow:var(--sh);font-size:14px;z-index:1000;display:flex;align-items:center}
-        .logout-btn{margin-left:8px;background:#ff3333;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
-        .close-btn{position:absolute;top:20px;right:20px;background:#888;color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:20px;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;opacity:0.7;transition:opacity 0.3s}
-        .close-btn:hover{opacity:1}
-        .find-password{color:var(--p);text-align:center;margin-top:10px;cursor:pointer;font-size:14px;text-decoration:underline}
-        .divider{display:flex;align-items:center;margin:1rem 0;color:#777;font-size:14px}
-        .divider::before,.divider::after{content:"";flex:1;border-bottom:1px solid #ddd;margin:0 10px}
-        @media (max-width:768px){.auth-section,.container{padding:1rem}.tab-content{padding:1.5rem}}
+        .auth-container{background:#fff;border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,0.15)}
+        .btn{background:var(--p);color:#fff;border:none;padding:12px;border-radius:var(--r);font-weight:600;cursor:pointer;width:100%;margin-bottom:1rem}
     </style>
 </head>
 <body>
-    <div class="auth-section" id="auth-section">
+    <div id="auth-section" class="auth-section">
         <div class="auth-container">
-            <div class="tabs"><div class="tab active" data-tab="login">로그인</div></div>
-            <div class="tab-content">
-                <div id="login" class="tab-pane active">
-                    <div id="login-message" class="message hidden"></div>
-                    <div class="social-login">
-                        <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
-                        <div class="divider">OR</div>
-                        <button id="google-login-btn" class="btn btn-google">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" width="18"><path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg>
-                            Google로 로그인
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <button id="guest-login-btn" class="btn">Guest로 로그인</button>
+            <button id="google-login-btn" class="btn">Google로 로그인</button>
         </div>
     </div>
     <div id="content" class="container" style="display:none">
-        <div class="image-container"><img src="https://raw.githubusercontent.com/Yousoo68/SSUL/main/SSULicon.jpg" alt="프로필 이미지"></div>
+        <div class="image-container"><img src="https://raw.githubusercontent.com/Yousoo68/SSUL/main/SSULicon.jpg" alt="프로필"></div>
         <div class="title">섹시유수의 비밀 썰SSUL</div>
-        <div class="category-button" onclick="toggleCategory('p-reader')">P독자 전용 썰</div>
+        <div class="category-button" onclick="toggle('p-reader')">P독자 전용 썰</div>
         <div id="p-reader" class="category-content">
-            <div class="subtitle" style="color:var(--a)" onclick="showFullScreenImage('https://i.ibb.co/TMRn3SbR/Bpqtm4xnra.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶</div>
-            <div class="subtitle" style="color:var(--a)" onclick="showSSUL6PasswordInput()">질싸할 뻔한 썰</div>
+            <div class="subtitle" style="color:var(--a)" onclick="showImage('https://i.ibb.co/TMRn3SbR/Bpqtm4xnra.jpg')"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌶</div>
+            <div class="subtitle" style="color:var(--a)" onclick="showPwInput('ssul6','v5W3OZn1vTSpiw1rimJ4aE1sIiQBLBRcVRNntusGpPNkydEPlA73KURVdSNCKplslRco0a8PspdvrvZy1YpZTEwSUIdCTqkaGc4qD9W298kUKeSInVbo4S3mV6UCWp9jKhU7WEO4jKrCeACy1CIlBCJMnI1GPvex7v4qpFtFOvmWLXkSyAWRihs33sLBc47EJ7Xjn2Ne','https://raw.githubusercontent.com/Yousoo68/photo/main/ssull6.jpg')">질싸할 뻔한 썰</div>
         </div>
-        <div class="category-button" onclick="toggleCategory('a-limited')">A독자 한정공개 썰</div>
+        <div class="category-button" onclick="toggle('a-limited')">A독자 한정공개 썰</div>
         <div id="a-limited" class="category-content">
             <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿</div>
-            <div class="subtitle" style="color:var(--p)" onclick="showPasswordInputForSSUL3()">중3때 아다 땐 첫경험 썰</div>
+            <div class="subtitle" style="color:var(--p)" onclick="showPwInput('ssul3','Dhdjeiei882ue','https://raw.githubusercontent.com/Yousoo68/photo/main/ssul3.jpg')">중3때 아다 땐 첫경험 썰</div>
         </div>
-        <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
+        <div class="category-button" onclick="toggle('a-permanent')">A독자 영구공개 썰</div>
         <div id="a-permanent" class="category-content">
-            <div class="subtitle" style="color:var(--p)" onclick="showFullScreenImage('https://i.ibb.co/KpQtcnvX/QIYRsy-MEv-E.jpg')">담배 첫경험 썰</div>
+            <div class="subtitle" style="color:var(--p)" onclick="showImage('https://i.ibb.co/KpQtcnvX/QIYRsy-MEv-E.jpg')">담배 첫경험 썰</div>
         </div>
-        <div class="category-button" onclick="toggleCategory('all-permanent')">전체 영구공개 썰</div>
+        <div class="category-button" onclick="toggle('all-permanent')">전체 영구공개 썰</div>
         <div id="all-permanent" class="category-content">
-            <div class="subtitle" onclick="showFullScreenImage('https://i.ibb.co/Z6cdJbpM/cnf-KMGI1-FR.jpg')">희비가 교차하는 반배정 썰</div>
-            <div class="subtitle" onclick="showFullScreenImage('https://i.ibb.co/9kMcQVDK/s-R3u-U3ga-Qu.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
-            <div class="subtitle" style="color:var(--p)" onclick="showFullScreenImage('https://i.ibb.co/PsNrQ51d/nw-Wt5-Qba-Ho.jpg')">신의 아들임과 동시에 신의 조카 된 썰</div>
+            <div class="subtitle" onclick="showImage('https://i.ibb.co/Z6cdJbpM/cnf-KMGI1-FR.jpg')">희비가 교차하는 반배정 썰</div>
+            <div class="subtitle" onclick="showImage('https://i.ibb.co/9kMcQVDK/s-R3u-U3ga-Qu.jpg')">우왕좌왕 헬정자의 헬스 썰</div>
+            <div class="subtitle" style="color:var(--p)" onclick="showImage('https://i.ibb.co/PsNrQ51d/nw-Wt5-Qba-Ho.jpg')">신의 아들임과 동시에 신의 조카 된 썰</div>
         </div>
-        <div class="large-image-container"><img src="https://raw.githubusercontent.com/Yousoo68/SSUL/main/Pyramid.jpg" alt="피라미드 이미지"></div>
-        <div class="disclaimer">섹시유수에서 제공하는 썰들은 필자가 실제로 겪은 일들 입니다.</div>
-        <div class="youtube-embed"><iframe src="https://www.youtube.com/embed/z6h3d-gwwvQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
-    <div id="ssul3-password-container" class="password-container" style="display:none">
-        <h3 style="margin-top:0;color:var(--p)">비밀번호 입력</h3>
-        <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
-        <button onclick="checkSSUL3Password()">확인</button>
-        <div id="find-password" class="find-password" onclick="redirectToPasswordHelp()">비밀번호 찾기</button>
-        <button class="close-btn" onclick="closePasswordContainer('ssul3')">×</button>
+    <div id="password-container" class="password-container">
+        <h3 style="color:var(--p)">비밀번호 입력</h3>
+        <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkPw()">확인</button>
+        <button class="close-btn" onclick="closePw()">×</button>
     </div>
-    <div id="ssul6-password-container" class="password-container" style="display:none">
-        <h3 style="margin-top:0;color:var(--p)">비밀번호 입력</h3>
-        <input type="password" id="ssul6-password-input" placeholder="비밀번호를 입력하세요">
-        <button onclick="checkSSUL6Password()">확인</button>
-        <button class="close-btn" onclick="closePasswordContainer('ssul6')">×</button>
+    <div id="full-screen-image" class="full-screen-image">
+        <img src="" alt="썰" style="max-width:100%">
+        <button class="close-btn" onclick="closeImage()">×</button>
     </div>
-    <div id="image-result" class="image-result" style="display:none">
-        <img src="" alt="썰" id="result-image">
-        <div class="youtube-link" onclick="showYoutubePasswordInput()">윗 썰에서 아담 부분 당시, 학원 쉬는시간에 흡연 당시, 첫연초 당시 영상 보기</div>
-        <button class="close-btn" onclick="closeFullScreenImage()">×</button>
-    </div>
-    <div id="youtube-password-container" class="password-container" style="display:none">
-        <h3 style="margin-top:0;color:var(--p)">영상 비밀번호 입력</h3>
-        <input type="password" id="youtube-password-input" placeholder="영상을 보려면 비밀번호를 입력하세요">
-        <button onclick="checkYoutubePassword()">확인</button>
-        <button class="close-btn" onclick="closePasswordContainer('youtube')">×</button>
-    </div>
-    <div id="full-screen-image-container" class="full-screen-image" style="display:none">
-        <img src="" alt="전체 화면 이미지" id="full-screen-image">
-        <button class="close-btn" onclick="closeFullScreenImage()">×</button>
-    </div>
-    <div id="user-info" class="user-info" style="display:none"><span id="user-email"></span><button id="logout-btn" class="logout-btn">로그아웃</button></div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script>
-        if(document.referrer!=="https://yousoo68.github.io/fjYxbSA/")window.location.href="https://yousoo68.github.io/fjYxbSA/";
-        if(window.location.hostname!=="yousoo68.github.io"){document.body.innerHTML="<h1 style='text-align:center;margin-top:50px;color:var(--p)'>이 페이지는 https://yousoo68.github.io/fjYxbSA/ 링크를 통해서만 접속할 수 있습니다.</h1>";setTimeout(()=>{window.location.href="https://yousoo68.github.io/fjYxbSA/"},5000)}
         const P_ACCOUNTS=['fjrtufl9909@gmail.com','minjune003956@gmail.com','sexyyousoo68@gmail.com','seojunna73@gmail.com','seyun07070782@gmail.com','chaejun0708@gmail.com','sonhyeonmins@gmail.com','rang330579@gmail.com','seonuh777@gmail.com','gogumaa0712@gmail.com','kjuho0716@gmail.com'];
         const A_ACCOUNTS=['shinjonghwan0430@gmail.com','fofmmm1605@gmail.com','shinyousoo68@gmail.com'];
-        const firebaseConfig={apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",authDomain:"login-34bef.firebaseapp.com",projectId:"login-34bef",storageBucket:"login-34bef.appspot.com",messagingSenderId:"888738257773",appId:"1:888738257773:web:b1c5a99b41996c3ac2d864",measurementId:"G-MJB1NJH05M"};
-        firebase.initializeApp(firebaseConfig);const auth=firebase.auth();
-        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),loginMessage=document.getElementById('login-message'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email'),findPassword=document.getElementById('find-password');
-        let currentUser=null,isGuest=false,lastClickTime=0,clickCount=0;
-        
+        firebase.initializeApp({apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",authDomain:"login-34bef.firebaseapp.com",projectId:"login-34bef",storageBucket:"login-34bef.appspot.com",messagingSenderId:"888738257773",appId:"1:888738257773:web:b1c5a99b41996c3ac2d864"});
+        let currentUser=null,currentPw='',currentImg='',clickCount=0,lastClick=0;
+
+        function toggle(id){document.getElementById(id).style.display=document.getElementById(id).style.display==='block'?'none':'block'}
+        function showImage(url){document.getElementById('content').style.display='none';document.getElementById('full-screen-image').style.display='block';document.getElementById('full-screen-image').querySelector('img').src=url}
+        function closeImage(){document.getElementById('full-screen-image').style.display='none';document.getElementById('content').style.display='flex'}
+        function showPwInput(type,pw,img){document.getElementById('content').style.display='none';document.getElementById('password-container').style.display='block';currentPw=pw;currentImg=img}
+        function checkPw(){if(document.getElementById('password-input').value===currentPw){closePw();showImage(currentImg)}else{alert('비밀번호 틀림');document.getElementById('password-input').value=''}}
+        function closePw(){document.getElementById('password-container').style.display='none';document.getElementById('content').style.display='flex'}
+
         function updateUI(user){
-            if(user||currentUser){
-                authSection.style.display='none';
-                contentSection.style.display='flex';
-                userInfo.style.display='flex';
-                const email=user?.email||currentUser?.email;
-                userEmail.textContent=email;
-                updateCategoryAccess(email);
-            }else{
-                authSection.style.display='block';
-                contentSection.style.display='none';
-                userInfo.style.display='none';
-                currentUser=null;
-                isGuest=false;
-            }
-        }
-        
-        function updateCategoryAccess(email){
-            const subtitles=document.querySelectorAll('.subtitle');
-            subtitles.forEach(subtitle=>{subtitle.classList.add('disabled')});
-            document.querySelectorAll('#all-permanent .subtitle').forEach(subtitle=>{subtitle.classList.remove('disabled')});
-            if(P_ACCOUNTS.includes(email)){
-                subtitles.forEach(subtitle=>{subtitle.classList.remove('disabled')});
-            }else if(A_ACCOUNTS.includes(email)){
-                document.querySelectorAll('#a-limited .subtitle, #a-permanent .subtitle').forEach(subtitle=>{subtitle.classList.remove('disabled')});
-                document.querySelectorAll('#p-reader .subtitle').forEach(subtitle=>{subtitle.classList.add('disabled')});
-            }
-            if(findPassword)findPassword.style.display=(P_ACCOUNTS.includes(email)||A_ACCOUNTS.includes(email))?'block':'none';
-        }
-        
-        function showMessage(element,text,type){
-            if(!element)return;
-            element.textContent=text;
-            element.className=`message ${type}`;
-            element.classList.remove('hidden');
-            setTimeout(()=>{element.classList.add('hidden')},5000)
-        }
-        
-        function handleAuthError(error,element){
-            showMessage(element,error.code==='auth/too-many-requests'?'너무 많은 시도가 있었습니다. 나중에 다시 시도해주세요.':error.message,'error');
-            console.error('인증 오류:',error)
-        }
-        
-        function toggleCategory(categoryId){
-            const category=document.getElementById(categoryId);
-            category.style.display=category.style.display==='block'?'none':'block'
-        }
-        
-        function showFullScreenImage(imageUrl){
-            document.getElementById('content').style.display='none';
-            const container=document.getElementById('full-screen-image-container');
-            container.style.display='block';
-            const image=document.getElementById('full-screen-image');
-            image.src=imageUrl;
-            image.onclick=function(){
-                const now=new Date().getTime();
-                if(now-lastClickTime<500)clickCount++;else clickCount=1;
-                lastClickTime=now;
-                if(clickCount===2&&imageUrl==='https://i.ibb.co/KpQtcnvX/QIYRsy-MEv-E.jpg'&&P_ACCOUNTS.includes(currentUser?.email)){
-                    window.location.href='https://m.youtube.com/watch?v=EgPQGvbsKy0';
-                }
-            }
-        }
-        
-        function showPasswordInputForSSUL3(){
-            document.getElementById('content').style.display='none';
-            document.getElementById('ssul3-password-container').style.display='block';
-            document.getElementById('ssul3-password-input').focus()
-        }
-        
-        function showSSUL6PasswordInput(){
-            document.getElementById('content').style.display='none';
-            document.getElementById('ssul6-password-container').style.display='block';
-            document.getElementById('ssul6-password-input').focus()
-        }
-        
-        function checkSSUL3Password(){
-            const password=document.getElementById('ssul3-password-input').value;
-            if(password==='Dhdjeiei882ue'){
-                document.getElementById('ssul3-password-container').style.display='none';
-                document.getElementById('full-screen-image-container').style.display='block';
-                document.getElementById('full-screen-image').src='https://raw.githubusercontent.com/Yousoo68/photo/main/ssul3.jpg';
-            }else{
-                alert('비밀번호가 틀렸습니다.');
-                document.getElementById('ssul3-password-input').value='';
-                document.getElementById('ssul3-password-input').focus()
-            }
-        }
-        
-        function checkSSUL6Password(){
-            const password=document.getElementById('ssul6-password-input').value;
-            if(password==='v5W3OZn1vTSpiw1rimJ4aE1sIiQBLBRcVRNntusGpPNkydEPlA73KURVdSNCKplslRco0a8PspdvrvZy1YpZTEwSUIdCTqkaGc4qD9W298kUKeSInVbo4S3mV6UCWp9jKhU7WEO4jKrCeACy1CIlBCJMnI1GPvex7v4qpFtFOvmWLXkSyAWRihs33sLBc47EJ7Xjn2Ne'){
-                document.getElementById('ssul6-password-container').style.display='none';
-                document.getElementById('full-screen-image-container').style.display='block';
-                document.getElementById('full-screen-image').src='https://raw.githubusercontent.com/Yousoo68/photo/main/ssull6.jpg';
-            }else{
-                alert('비밀번호가 틀렸습니다.');
-                document.getElementById('ssul6-password-input').value='';
-                document.getElementById('ssul6-password-input').focus()
-            }
-        }
-        
-        function showYoutubePasswordInput(){
-            document.getElementById('youtube-password-container').style.display='block';
-            document.getElementById('youtube-password-input').focus()
-        }
-        
-        function checkYoutubePassword(){
-            const youtubePassword=document.getElementById('youtube-password-input').value;
-            if(youtubePassword==='Fe8tqkSPIj4myPL0wGHcOXt7OnSDlYPYF4PEv1lG778gYaZ3sJ'){
-                window.location.href='https://www.youtube.com/watch?v=EgPQGvbsKy0'
-            }else{
-                alert('비밀번호가 틀렸습니다.');
-                document.getElementById('youtube-password-input').value='';
-                document.getElementById('youtube-password-input').focus()
-            }
-        }
-        
-        function closeFullScreenImage(){
-            document.getElementById('full-screen-image-container').style.display='none';
-            document.getElementById('content').style.display='flex';
-        }
-        
-        function closePasswordContainer(type){
-            document.getElementById(`${type}-password-container`).style.display='none';
-            document.getElementById('content').style.display='flex';
-        }
-        
-        function redirectToPasswordHelp(){
-            if(P_ACCOUNTS.includes(currentUser?.email)||A_ACCOUNTS.includes(currentUser?.email)){
-                window.location.href='https://www.youtube.com/watch?v=t5QaQyLcZlY';
-            }
-        }
-        
-        guestLoginBtn.addEventListener('click',()=>{
-            isGuest=true;
-            currentUser={email:'guest@example.com',isGuest:true};
-            updateUI(currentUser)
-        });
-        
-        googleLoginBtn.addEventListener('click',async()=>{
-            try{
-                const provider=new firebase.auth.GoogleAuthProvider();
-                const result=await auth.signInWithPopup(provider);
-                currentUser=result.user;
-                isGuest=false;
-                updateUI(currentUser)
-            }catch(error){
-                handleAuthError(error,loginMessage)
-            }
-        });
-        
-        logoutBtn.addEventListener('click',()=>{
-            if(isGuest){
-                currentUser=null;
-                isGuest=false;
-                updateUI(null)
-            }else{
-                auth.signOut().then(()=>{
-                    currentUser=null;
-                    updateUI(null)
-                }).catch((error)=>{
-                    console.error('로그아웃 오류:',error)
-                })
-            }
-        });
-        
-        document.addEventListener('contextmenu',e=>e.preventDefault());
-        document.addEventListener('selectstart',e=>e.preventDefault());
-        auth.onAuthStateChanged((user)=>{
+            document.getElementById('auth-section').style.display=user?'none':'block';
+            document.getElementById('content').style.display=user?'flex':'none';
             if(user){
                 currentUser=user;
-                isGuest=false
+                const subtitles=document.querySelectorAll('.subtitle');
+                subtitles.forEach(s=>s.classList.add('disabled'));
+                document.querySelectorAll('#all-permanent .subtitle').forEach(s=>s.classList.remove('disabled'));
+                if(P_ACCOUNTS.includes(user.email)) subtitles.forEach(s=>s.classList.remove('disabled'));
+                else if(A_ACCOUNTS.includes(user.email)) document.querySelectorAll('#a-limited .subtitle, #a-permanent .subtitle').forEach(s=>s.classList.remove('disabled'));
             }
-            updateUI(user)
-        });
-        updateUI(null);
+        }
+
+        document.getElementById('guest-login-btn').addEventListener('click',()=>updateUI({email:'guest@example.com'}));
+        document.getElementById('google-login-btn').addEventListener('click',()=>firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e=>alert(e.message)));
+        firebase.auth().onAuthStateChanged(user=>updateUI(user));
+        document.addEventListener('contextmenu',e=>e.preventDefault());
     </script>
 </body>
 </html>
