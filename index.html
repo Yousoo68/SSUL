@@ -21,12 +21,12 @@
         .disclaimer{font-size:12px;color:#777;margin-top:25px;padding:15px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);line-height:1.5}
         .large-image-container{width:100%;max-width:400px;margin-bottom:25px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
         .large-image-container img{width:100%;height:auto;display:block}
-        .full-screen-image{width:100%;height:100vh;overflow-y:scroll;background:#fff;display:flex;justify-content:center;align-items:flex-start;position:relative}
-        .full-screen-image img{width:100%;height:auto;max-width:100%}
+        .full-screen-image{width:100%;height:100vh;overflow-y:scroll;background:#fff;display:flex;flex-direction:column;align-items:center;position:relative;padding:20px 0}
+        .full-screen-image img{width:100%;max-width:100%;margin-bottom:10px}
         .youtube-embed{width:100%;max-width:500px;margin-top:25px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
         .youtube-embed iframe{width:100%;height:280px;border:none}
         .password-container{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:25px;border-radius:var(--r);box-shadow:0 10px 25px rgba(0,0,0,0.2);z-index:1000;width:85%;max-width:350px}
-        .password-container input{padding:12px 15px;font-size:16px;margin-bottom:15px;width:100%;border:1px solid #ddd;border-radius:8px;outline:none;transition:border 0.3s}
+        .password-container input{padding:12px 15px;font-size:16px;margin-bottom:15px;width:100%;border:1px solid #ddd;border-radius:8px;outline:none;transition:border 0.3s;box-sizing:border-box}
         .password-container input:focus{border-color:var(--p)}
         .password-container button{padding:12px 20px;font-size:16px;cursor:pointer;width:100%;background:var(--p);color:#fff;border:none;border-radius:8px;font-weight:600;transition:background 0.3s}
         .password-container button:hover{background:var(--s)}
@@ -83,6 +83,7 @@
         <div id="a-limited" class="category-content">
             <div class="subtitle" onclick="window.location.href='https://ssulorigin.neocities.org/'"><span class="bold-text">공</span>중화장실에서 <span class="bold-text">섹</span>스한 <span class="bold-text">썰</span>🌿</div>
             <div class="subtitle" style="color:var(--p)" onclick="showPasswordInputForSSUL3()">중3때 아다 땐 첫경험 썰</div>
+            <div class="subtitle" style="color:var(--p)" onclick="showPasswordInputForSSUL7()">새장에 갇힌 새 썰(+엄마한테 전여친이랑 집에서 한거 걸린 썰)</div>
         </div>
         <div class="category-button" onclick="toggleCategory('a-permanent')">A독자 영구공개 썰</div>
         <div id="a-permanent" class="category-content">
@@ -102,7 +103,7 @@
         <h3 style="margin-top:0;color:var(--p)">비밀번호 입력</h3>
         <input type="password" id="ssul3-password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkSSUL3Password()">확인</button>
-        <div id="find-password" class="find-password" onclick="redirectToPasswordHelp()">비밀번호 찾기</div>
+        <div class="find-password" onclick="redirectToPasswordHelp()">비밀번호 찾기</div>
         <button class="close-btn" onclick="closePasswordContainer('ssul3')">×</button>
     </div>
     <div id="ssul6-password-container" class="password-container" style="display:none">
@@ -110,6 +111,13 @@
         <input type="password" id="ssul6-password-input" placeholder="비밀번호를 입력하세요">
         <button onclick="checkSSUL6Password()">확인</button>
         <button class="close-btn" onclick="closePasswordContainer('ssul6')">×</button>
+    </div>
+    <div id="ssul7-password-container" class="password-container" style="display:none">
+        <h3 style="margin-top:0;color:var(--p)">비밀번호 입력</h3>
+        <input type="password" id="ssul7-password-input" placeholder="비밀번호를 입력하세요">
+        <button onclick="checkSSUL7Password()">확인</button>
+        <div class="find-password" onclick="redirectToPasswordHelp()">비밀번호 찾기</div>
+        <button class="close-btn" onclick="closePasswordContainer('ssul7')">×</button>
     </div>
     <div id="full-screen-image-container" class="full-screen-image" style="display:none">
         <img src="" alt="전체 화면 이미지" id="full-screen-image">
@@ -125,7 +133,7 @@
         const A_ACCOUNTS=['shinjonghwan0430@gmail.com','fofmmm1605@gmail.com','shinyousoo68@gmail.com'];
         const firebaseConfig={apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",authDomain:"login-34bef.firebaseapp.com",projectId:"login-34bef",storageBucket:"login-34bef.appspot.com",messagingSenderId:"888738257773",appId:"1:888738257773:web:b1c5a99b41996c3ac2d864",measurementId:"G-MJB1NJH05M"};
         firebase.initializeApp(firebaseConfig);const auth=firebase.auth();
-        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email'),findPassword=document.getElementById('find-password');
+        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email');
         let currentUser=null,isGuest=false,lastClickTime=0,clickCount=0;
         
         function updateUI(user){
@@ -154,7 +162,6 @@
             }else if(A_ACCOUNTS.includes(email)){
                 document.querySelectorAll('#a-limited .subtitle, #a-permanent .subtitle').forEach(subtitle=>{subtitle.classList.remove('disabled')});
             }
-            if(findPassword)findPassword.style.display=(P_ACCOUNTS.includes(email)||A_ACCOUNTS.includes(email))?'block':'none';
         }
         
         function toggleCategory(categoryId){
@@ -189,6 +196,12 @@
             document.getElementById('ssul3-password-input').focus();
         }
         
+        function showPasswordInputForSSUL7(){
+            document.getElementById('content').style.display='none';
+            document.getElementById('ssul7-password-container').style.display='block';
+            document.getElementById('ssul7-password-input').focus();
+        }
+        
         function showSSUL6PasswordInput(){
             document.getElementById('content').style.display='none';
             document.getElementById('ssul6-password-container').style.display='block';
@@ -204,6 +217,27 @@
                 alert('비밀번호가 틀렸습니다.');
                 document.getElementById('ssul3-password-input').value='';
                 document.getElementById('ssul3-password-input').focus();
+            }
+        }
+        
+        function checkSSUL7Password(){
+            const password=document.getElementById('ssul7-password-input').value;
+            if(password==='Dhdjeiei882ue'){
+                document.getElementById('ssul7-password-container').style.display='none';
+                const container=document.getElementById('full-screen-image-container');
+                container.style.display='flex';
+                container.innerHTML=`
+                    <button class="close-btn" onclick="closeFullScreenImage()">×</button>
+                    <img src="https://i.esdrop.com/d/f/PeFJljKFZ9/a9B6HBZ5ys.jpg" alt="이미지 1">
+                    <img src="https://i.esdrop.com/d/f/PeFJljKFZ9/XMZJi4UDuz.jpg" alt="이미지 2">
+                    <img src="https://i.esdrop.com/d/f/PeFJljKFZ9/H68PO70taj.jpg" alt="이미지 3">
+                    <img src="https://i.esdrop.com/d/f/PeFJljKFZ9/ukzgWhPV9T.jpg" alt="이미지 4">
+                    <img src="https://i.esdrop.com/d/f/PeFJljKFZ9/O0F2yN4HIA.jpg" alt="이미지 5">
+                `;
+            }else{
+                alert('비밀번호가 틀렸습니다.');
+                document.getElementById('ssul7-password-input').value='';
+                document.getElementById('ssul7-password-input').focus();
             }
         }
         
@@ -231,7 +265,7 @@
         
         function redirectToPasswordHelp(){
             if(P_ACCOUNTS.includes(currentUser?.email)||A_ACCOUNTS.includes(currentUser?.email)){
-                window.location.href='https://www.youtube.com/watch?v=t5QaQyLcZlY';
+                window.location.href='https://yousoo68.github.io/vbjskgx/';
             }
         }
         
