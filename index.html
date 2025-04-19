@@ -53,6 +53,7 @@
         .user-info{position:fixed;bottom:10px;right:10px;background:#fff;padding:8px 12px;border-radius:20px;box-shadow:var(--sh);font-size:14px;z-index:1000;display:flex;align-items:center}
         .logout-btn{margin-left:8px;background:#ff3333;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
         .find-password{color:var(--p);text-align:center;margin-top:10px;cursor:pointer;font-size:14px;text-decoration:underline}
+        .guide-icon{position:fixed;top:20px;right:20px;width:60px;height:60px;cursor:pointer;z-index:1000;display:none}
     </style>
 </head>
 <body>
@@ -124,6 +125,7 @@
         <button class="close-btn" onclick="closeFullScreenImage()">×</button>
     </div>
     <div id="user-info" class="user-info" style="display:none"><span id="user-email"></span><button id="logout-btn" class="logout-btn">로그아웃</button></div>
+    <img id="guide-icon" class="guide-icon" src="https://raw.githubusercontent.com/Yousoo68/VosJmFw/refs/heads/main/Guide.png" onclick="window.location.href='https://ssuldeep.neocities.org'">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script>
@@ -133,7 +135,7 @@
         const A_ACCOUNTS=['shinjonghwan0430@gmail.com','shinyousoo68@gmail.com', 'ggibeom425@gmail.com', 'xbgustlr@gmail.com'];
         const firebaseConfig={apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",authDomain:"login-34bef.firebaseapp.com",projectId:"login-34bef",storageBucket:"login-34bef.appspot.com",messagingSenderId:"888738257773",appId:"1:888738257773:web:b1c5a99b41996c3ac2d864",measurementId:"G-MJB1NJH05M"};
         firebase.initializeApp(firebaseConfig);const auth=firebase.auth();
-        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email');
+        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email'),guideIcon=document.getElementById('guide-icon');
         let currentUser=null,isGuest=false,lastClickTime=0,clickCount=0;
         
         function updateUI(user){
@@ -141,6 +143,7 @@
                 authSection.style.display='none';
                 contentSection.style.display='flex';
                 userInfo.style.display='flex';
+                guideIcon.style.display='block';
                 const email=user?.email||currentUser?.email;
                 userEmail.textContent=email;
                 updateCategoryAccess(email);
@@ -148,6 +151,7 @@
                 authSection.style.display='flex';
                 contentSection.style.display='none';
                 userInfo.style.display='none';
+                guideIcon.style.display='none';
                 currentUser=null;
                 isGuest=false;
             }
