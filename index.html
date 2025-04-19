@@ -53,9 +53,7 @@
         .user-info{position:fixed;bottom:10px;right:10px;background:#fff;padding:8px 12px;border-radius:20px;box-shadow:var(--sh);font-size:14px;z-index:1000;display:flex;align-items:center}
         .logout-btn{margin-left:8px;background:#ff3333;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
         .find-password{color:var(--p);text-align:center;margin-top:10px;cursor:pointer;font-size:14px;text-decoration:underline}
-        .guide-btn{position:fixed;top:20px;right:20px;width:55px;height:55px;border-radius:50%;background:#fff;box-shadow:var(--sh);cursor:pointer;z-index:1000;display:none;align-items:center;justify-content:center;transition:all 0.3s ease}
-        .guide-btn:hover{transform:scale(1.1)}
-        .guide-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+        .guide-icon{position:fixed;top:20px;right:20px;width:55px;height:55px;z-index:999;cursor:pointer;display:none}
     </style>
 </head>
 <body>
@@ -127,7 +125,7 @@
         <button class="close-btn" onclick="closeFullScreenImage()">×</button>
     </div>
     <div id="user-info" class="user-info" style="display:none"><span id="user-email"></span><button id="logout-btn" class="logout-btn">로그아웃</button></div>
-    <div class="guide-btn" id="guide-btn" onclick="showGuideImage()"><img src="https://raw.githubusercontent.com/Yousoo68/VosJmFw/refs/heads/main/Guide.png" alt="가이드"></div>
+    <img id="guide-icon" class="guide-icon" src="https://raw.githubusercontent.com/Yousoo68/VosJmFw/refs/heads/main/Guide.png" onclick="showGuideImage()">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script>
@@ -137,7 +135,7 @@
         const A_ACCOUNTS=['shinjonghwan0430@gmail.com','shinyousoo68@gmail.com', 'ggibeom425@gmail.com', 'xbgustlr@gmail.com'];
         const firebaseConfig={apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",authDomain:"login-34bef.firebaseapp.com",projectId:"login-34bef",storageBucket:"login-34bef.appspot.com",messagingSenderId:"888738257773",appId:"1:888738257773:web:b1c5a99b41996c3ac2d864",measurementId:"G-MJB1NJH05M"};
         firebase.initializeApp(firebaseConfig);const auth=firebase.auth();
-        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email'),guideBtn=document.getElementById('guide-btn');
+        const authSection=document.getElementById('auth-section'),contentSection=document.getElementById('content'),logoutBtn=document.getElementById('logout-btn'),guestLoginBtn=document.getElementById('guest-login-btn'),googleLoginBtn=document.getElementById('google-login-btn'),userInfo=document.getElementById('user-info'),userEmail=document.getElementById('user-email'),guideIcon=document.getElementById('guide-icon');
         let currentUser=null,isGuest=false,lastClickTime=0,clickCount=0;
         
         function updateUI(user){
@@ -145,7 +143,7 @@
                 authSection.style.display='none';
                 contentSection.style.display='flex';
                 userInfo.style.display='flex';
-                guideBtn.style.display='flex';
+                guideIcon.style.display='block';
                 const email=user?.email||currentUser?.email;
                 userEmail.textContent=email;
                 updateCategoryAccess(email);
@@ -153,7 +151,7 @@
                 authSection.style.display='flex';
                 contentSection.style.display='none';
                 userInfo.style.display='none';
-                guideBtn.style.display='none';
+                guideIcon.style.display='none';
                 currentUser=null;
                 isGuest=false;
             }
@@ -177,6 +175,7 @@
         
         function showFullScreenImage(imageUrl){
             document.getElementById('content').style.display='none';
+            guideIcon.style.display='none';
             const container=document.getElementById('full-screen-image-container');
             container.style.display='flex';
             const image=document.getElementById('full-screen-image');
@@ -198,6 +197,7 @@
         
         function showGuideImage(){
             document.getElementById('content').style.display='none';
+            guideIcon.style.display='none';
             const container=document.getElementById('full-screen-image-container');
             container.style.display='flex';
             container.innerHTML=`
@@ -208,18 +208,21 @@
         
         function showPasswordInputForSSUL3(){
             document.getElementById('content').style.display='none';
+            guideIcon.style.display='none';
             document.getElementById('ssul3-password-container').style.display='block';
             document.getElementById('ssul3-password-input').focus();
         }
         
         function showPasswordInputForSSUL7(){
             document.getElementById('content').style.display='none';
+            guideIcon.style.display='none';
             document.getElementById('ssul7-password-container').style.display='block';
             document.getElementById('ssul7-password-input').focus();
         }
         
         function showSSUL6PasswordInput(){
             document.getElementById('content').style.display='none';
+            guideIcon.style.display='none';
             document.getElementById('ssul6-password-container').style.display='block';
             document.getElementById('ssul6-password-input').focus();
         }
@@ -272,11 +275,13 @@
         function closeFullScreenImage(){
             document.getElementById('full-screen-image-container').style.display='none';
             document.getElementById('content').style.display='flex';
+            guideIcon.style.display='block';
         }
         
         function closePasswordContainer(type){
             document.getElementById(`${type}-password-container`).style.display='none';
             document.getElementById('content').style.display='flex';
+            guideIcon.style.display='block';
         }
         
         function redirectToPasswordHelp(){
