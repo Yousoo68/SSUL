@@ -132,7 +132,6 @@
         if (authResult && authResult.accessToken && authResult.idToken) {
           webAuth.client.userInfo(authResult.accessToken, function(err, user) {
             if (user) {
-              document.getElementById('result').textContent = JSON.stringify(user, null, 2);
               var userEmail = user.email.toLowerCase();
               if (allowedEmails.includes(userEmail)) {
                 window.location.href = 'https://dbtn68.github.io/Qdhuwe/BehindStory.html';
