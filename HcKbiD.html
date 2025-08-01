@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ㅤ</title>
+  <script src="https://cdn.auth0.com/js/auth0/9.19/auth0.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    button {
+      background-color: #ffffff;
+      color: #1a1a1a;
+      border: none;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #f2f2f2;
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      text-align: left;
+      overflow-x: auto;
+      color: #ddd;
+    }
+    .info-text {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: rgb(190, 190, 190);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>0고백2차임 썰</h2>
+
+    <div class="button-group">
+      <button id="login">회원으로 로그인</button>
+      <button id="guestLogin">비회원으로 로그인</button>
+    </div>
+
+    <pre id="result"></pre>
+
+    <div class="info-text">
+      회원 되는 법은 섹유갤 하이라이트에 자세히 표기
+    </div>
+  </div>
+
+  <script>
+    var allowedEmails = [
+      'fjrtufl9909@gmail.com',
+      'minjune003956@gmail.com',
+      'sexyyousoo68@gmail.com',
+      'seojunna73@gmail.com',
+      'seyun07070782@gmail.com',
+      'chaejun0708@gmail.com',
+      'sonhyeonmins@gmail.com',
+      'rang330579@gmail.com',
+      'seonuh777@gmail.com',
+      'gogumaa0712@gmail.com',
+      'kjuho0716@gmail.com',
+      'fofmmm1605@gmail.com',
+      'songinho131@gmail.com',
+      'kyh08170705@gmail.com'
+    ];
+
+    var webAuth = new auth0.WebAuth({
+      domain: 'dev-pe4wjh07dmtpf32l.us.auth0.com',
+      clientID: 'UijBDWTnAdQeb8tV6Dnv87hGQNp4YeoA',
+      redirectUri: window.location.href,
+      responseType: 'token id_token',
+      scope: 'openid profile email'
+    });
+
+    document.getElementById('login').addEventListener('click', function () {
+      webAuth.authorize({
+        connection: 'google-oauth2'
+      });
+    });
+
+    document.getElementById('guestLogin').addEventListener('click', function () {
+      window.location.href = 'https://yousoo68.github.io/SSUL/';
+    });
+
+    function handleAuthentication() {
+      webAuth.parseHash(function (err, authResult) {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          webAuth.client.userInfo(authResult.accessToken, function(err, user) {
+            if (user) {
+              document.getElementById('result').textContent = JSON.stringify(user, null, 2);
+              var userEmail = user.email.toLowerCase();
+              if (allowedEmails.includes(userEmail)) {
+                window.location.href = 'https://dbtn68.github.io/Qdhuwe/BehindStory.html';
+              } else {
+                window.location.href = 'https://yasyadong.cc/?_Action=items&items_id=19724';
+              }
+            }
+          });
+        } else if (err) {
+          console.log(err);
+        }
+      });
+    }
+
+    window.addEventListener('load', handleAuthentication);
+  </script>
+
+</body>
+</html>
